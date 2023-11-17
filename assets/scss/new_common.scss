@@ -1,0 +1,314 @@
+@each $theme in dark,
+light,
+colAquablue,
+colGreen,
+colBlue,
+colOrange,
+colGray,
+colNavy {
+    @include theme($theme);
+
+
+    .v-navigation-drawer__content {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .left-menu {
+        flex-grow: 1;
+    }
+
+    .k-treeview.k-treeview-md {
+        height: 100%;
+        margin-top: 0 !important;
+        position: relative;
+    }
+
+    .k-treeview-lines.k-treeview-group {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+
+        >.k-treeview-item {
+            &[aria-level="1"] {
+                width: 80px !important;
+                height: 80px !important;
+                >.k-treeview-mid+.k-animation-container {
+                    position: absolute !important;
+                    border-radius: 0 !important;
+                    left: 80px;
+                    top: 0;
+                    height: 100%;
+            
+                    .k-child-animation-container {
+                        box-shadow: inset 7px 0 9px -7px rgba(0, 0, 0, 0.4);
+                        width: 176px;
+                        height: 100%;
+                        overflow: auto;
+            
+                        @if $theme ==dark {
+                            background: #3E4659;
+                        }
+            
+                        @else {
+                            background: #fff;
+                        }
+            
+                        >.k-treeview-group {
+                            height: 100%;
+            
+                            .k-treeview-leaf {
+                                display: block !important;
+                                padding-block: 0 !important;
+                                padding-inline: 0 !important;
+            
+                                .k-treeview-leaf-text {
+                                    display: block !important;
+            
+                                    
+                                    
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            &[aria-expanded="true"] {
+                background: #fff;
+            }
+
+            >.k-treeview-mid {
+                width: 80px !important;
+                height: 80px !important;
+
+                >.k-treeview-leaf {
+                    padding: 0 !important;
+                    justify-content: center;
+
+                    .menu-level-1 {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        >.k-icon { display:none; }
+                    }
+                    
+                }
+            }
+        }
+        .menu-level-2 {
+            &:hover {
+                background-color: map-deep-get($config, #{$theme}, "menu-2depth-active-bg");
+            }
+            >.v-icon { display:none; }
+            >.treeNmText {
+                display: block !important;
+                padding: 13px 10px !important; 
+                border-bottom:1px solid map-deep-get($config, #{$theme}, "menu-border-bottom-color");
+            }
+            .k-icon {
+                width:12px; height:12px; 
+                position: absolute;
+                right: 16px;
+                top: 20px;
+                &.k-i-arrow-chevron-right {
+                    //열기 아이콘
+                    background-image: url("@/assets/images/icon/ico-menu-arr-O.svg");
+                    background-position: center center;
+                    background-size: 100%;
+                }
+                &.k-i-arrow-chevron-down {
+                    //닫기 아이콘
+                    background-image: url("@/assets/images/icon/ico-menu-arr-O.svg");
+                    background-position: center center;
+                    rotate: 180deg;
+                    background-size: 100%;
+                }
+            }
+            >.k-icon::before {
+                content: "";
+            }
+            &[aria-level="2"] {
+                .groud { padding: 5px 0;}
+            }
+        }
+        .menu-level-3 {
+            padding:6px 0;
+            &:hover {
+                background-color: map-deep-get($config, #{$theme}, "menu-2depth-active-bg");
+            }
+        }
+    }
+
+    
+
+    .color-select-wrap {
+        padding:5px 0 !important;
+        .color-select {
+            display: flex;
+            flex-direction: column;
+            width:100%;
+            li {
+                display: flex;
+                align-items: center;
+                padding: 4px 13px;
+                gap:6px;
+                cursor: pointer;
+                span {
+                    display: inline-block;
+                }
+    
+                .circle {
+                    flex-shrink: 0;
+                    width: 16px;
+                    height: 16px;
+                    border-radius: 16px;
+
+                    &.col-light {
+                        background-color: $--color-select-light;
+                    }
+    
+                    &.col-aquaBlue {
+                        background-color: $--color-select-aqua-blue;
+                    }
+    
+                    &.col-green {
+                        background-color: $--color-select-green;
+                    }
+    
+                    &.col-blue {
+                        background-color: $--color-select-blue;
+                    }
+    
+                    &.col-orange {
+                        background-color: $--color-select-orange;
+                    }
+    
+                    &.col-gray {
+                        background-color: $--color-select-gray;
+                    }
+    
+                    &.col-navy {
+                        background-color: $--color-select-navy;
+                    }
+                }
+    
+                &:hover, &.active {
+                    background-color: map-deep-get($config, #{$theme}, "menu-2depth-active-bg");
+                    .circle {
+                        background-image: url(@/assets/images/icon/ic-color-select.svg);
+                        background-position: center center;
+                        background-repeat: no-repeat;
+                    }
+                }
+    
+                .text {
+                    flex-grow: 1;
+                    color: #4A5662;
+                    font-size: 13px;
+                }
+            }
+        }
+    }
+
+    .modal-wrap {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 5;
+        opacity: 0;
+        pointer-events: none;
+
+        .modal {
+            z-index: 10;
+            position: absolute;
+            background-color: map-deep-get($config, #{$theme}, "router-tab-item");
+
+            padding: 20px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            transition: all 200ms ease-in-out;
+            visibility: hidden;
+            box-shadow: 0px 20px 80px 0px rgba(0, 0, 0, 0.25);
+            box-sizing: border-box;
+            -webkit-overflow-scrolling: touch;
+
+            &.menu-modal {
+                width: 500px;
+            }
+
+            .pop_tit {
+                color:map-deep-get($config, #{$theme}, "ft-color-listbox"); //#192f66; 
+                
+                padding-bottom: 20px;
+                margin-bottom: 30px;
+                border-bottom: 2px solid map-deep-get($config, #{$theme}, "ft-color-listbox");
+            }
+            .contents{
+                padding-bottom: 20px;
+            }
+        }
+        .btns {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            .button {
+                background: map-deep-get($config, #{$theme}, "ft-color-listbox");
+                color: map-deep-get($config, #{$theme}, "router-tab-item");
+                padding: 6px 20px;
+                height: 37px;
+                border: none;
+                outline: none;
+        
+                &:active, &:hover {
+                    background: map-deep-get($config, #{$theme}, "ft-color-listbox-hover");
+                }
+            }
+        }
+        
+        
+
+        .back {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0);
+            opacity: 0;
+            z-index: 9;
+            transition: all 200ms ease-in-out;
+            visibility: hidden;
+        }
+
+        &.active {
+            opacity: 1;
+            pointer-events: all;
+
+            >.menu-modal {
+                visibility: visible;
+                opacity: 1;
+            }
+
+            .back {
+                visibility: visible;
+                z-index: 1;
+                opacity: 1;
+            }
+        }
+
+        // .pop_btn_close {
+        //     border: none;
+        //     width: 50px;
+        //     height: 50px;
+        //     background: map-deep-get($config, #{$theme}, "ft-color-listbox");
+        //     border-radius: 50px;
+        // }
+    }
+}
+

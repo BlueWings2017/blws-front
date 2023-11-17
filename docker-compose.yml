@@ -1,0 +1,7 @@
+version: "3"
+
+services:
+  ls-itc:
+    build: ./
+    ports:
+      - "8010:80"

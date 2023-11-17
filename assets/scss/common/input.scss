@@ -1,0 +1,264 @@
+.v-select__custom {
+  &.v-text-field.v-text-field--solo:not(.v-text-field--solo-flat)
+    > .v-input__control
+    > .v-input__slot {
+    box-shadow: none;
+  }
+  &.v-text-field.v-text-field--solo .v-input__control {
+    min-height: 36px;
+    height: 36px;
+  }
+  &.v-input input {
+    min-height: 36px;
+    height: 36px;
+  }
+
+  .v-input--selection-controls {
+    margin-top: 0;
+    padding-top: 0;
+  }
+  .v-input__slot {
+    overflow: hidden;
+    position: relative;
+    height: 36px;
+  }
+}
+
+.v-input__custom {
+  .v-input__slot {
+    &:before,
+    &:after {
+      display: none;
+    }
+  }
+  .v-input__slot {
+    overflow: hidden;
+    position: relative;
+  }
+}
+
+.v-text-field .v-input__append-inner,
+.v-text-field .v-input__prepend-inner {
+  align-self: center !important;
+}
+
+
+
+.v-select__widget {
+  &.v-text-field.v-text-field--solo:not(.v-text-field--solo-flat)
+    > .v-input__control
+    > .v-input__slot {
+    box-shadow: none;
+  }
+  &.v-text-field.v-text-field--solo .v-input__control {
+    min-height: 30px !important;
+    height: 30px !important;
+  }
+  &.v-input input {
+    min-height: 30px !important;
+    height: 30px !important;
+  }
+  &.v-text-field--outlined > .v-input__control > .v-input__slot {
+    align-items: stretch;
+    min-height: 30px;
+  }
+
+  .v-input--selection-controls {
+    margin-top: 0;
+    padding-top: 0;
+  }
+  .v-input__slot {
+    overflow: hidden;
+    position: relative;
+    height: 30px !important;
+  }
+}
+
+.size {
+  &-mini {
+    width: 110px;
+    height: 30px;
+    flex: 0 0 auto;
+    &.v-text-field.v-text-field--solo .v-input__control {
+      min-height: 30px;
+      height: 30px;
+    }
+  }
+}
+.v-text-field > .v-input__control > .v-input__slot:after,
+.v-text-field > .v-input__control > .v-input__slot:before {
+  display: none;
+}
+
+.v-input__slot {
+  margin-bottom: 0 !important;
+}
+.v-input {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+.v-input__append-inner {
+  .v-icon {
+    color: currentColor !important;
+  }
+}
+
+@each $theme in dark,
+light,
+colAquablue,
+colGreen,
+colBlue,
+colOrange,
+colGray,
+colNavy {
+  @include theme($theme);
+  .v-application.#{$theme}-mode {
+    .v-input {
+      border-radius: 4px;
+
+      &:not(.v-input--radio-group, .v-input--checkbox) {
+        .v-input__slot {
+          background-color: map-deep-get(
+            $config,
+            #{$theme},
+            "v-input-backgroundColor"
+          );
+        }
+      }
+      .v-input__slot {
+        fieldset {
+          color: map-deep-get(
+            $config,
+            #{$theme},
+            "v-input-fieldset-color"
+          ) !important;
+        }
+
+        &:hover {
+          fieldset {
+            color: map-deep-get(
+              $config,
+              #{$theme},
+              "v-input-fieldset-hover-color"
+            ) !important;
+          }
+        }
+
+        .v-input__append-inner {
+          color: map-deep-get($config, #{$theme}, "v-input-icon-color");
+        }
+      }
+
+      &--is-readonly {
+        border-color: map-deep-get(
+          $config,
+          #{$theme},
+          "v-input-readonly-border-color"
+        );
+        &:not(.v-input--radio-group, .v-input--checkbox) {
+          .v-input__slot {
+            background-color: map-deep-get(
+              $config,
+              #{$theme},
+              "v-input-readonly-backgroundColor"
+            ) !important;
+          }
+        }
+      }
+
+      &--is-disabled {
+        border-color: map-deep-get(
+          $config,
+          #{$theme},
+          "v-input-readonly-border-color"
+        );
+        &:not(.v-input--radio-group, .v-input--checkbox) {
+          .v-input__slot {
+            background-color: map-deep-get(
+              $config,
+              #{$theme},
+              "v-input-disabled-backgroundColor"
+            ) !important;
+          }
+        }
+        input {
+          color: map-deep-get($config, #{$theme}, "v-input-disabled-color");
+        }
+      }
+    }
+
+    .v-select {
+      .v-label {
+        color: map-deep-get($config, #{$theme}, "v-select-label-color");
+      }
+
+      &.v-input--is-disabled {
+        .v-label {
+          color: map-deep-get($config, #{$theme}, "v-input-disabled-color");
+        }
+        .v-icon.v-icon--disabled {
+          color: map-deep-get(
+            $config,
+            #{$theme},
+            "v-input-disabled-color"
+          ) !important;
+        }
+        .v-select__selection--disabled {
+          color: map-deep-get(
+            $config,
+            #{$theme},
+            "v-input-disabled-color"
+          ) !important;
+        }
+      }
+    }
+
+    .v-radio {
+      .v-label {
+        color: map-deep-get($config, #{$theme}, "non-activate");
+      }
+      &.v-item--active {
+        .v-label {
+          color: map-deep-get($config, #{$theme}, "activate");
+        }
+      }
+    }
+  }
+
+  .v-radio {
+    .v-icon {
+      opacity: 0.6;
+    }
+
+    .v-label {
+      color: map-deep-get($config, #{$theme}, "non-activate");
+    }
+
+    &.v-item--active {
+      .v-icon {
+        opacity: 1;
+      }
+
+      .v-label {
+        color: map-deep-get($config, #{$theme}, "activate");
+      }
+    }
+  }
+
+  .v-input--checkbox {
+    .v-icon {
+      @if $theme == dark {
+        color: rgba(255, 255, 255, 0.6);
+      } @else {
+        color: #aaaaaa;
+      }
+    }
+  }
+
+  .v-textarea{
+    textarea{
+      padding: 10px;
+    }
+  }
+}

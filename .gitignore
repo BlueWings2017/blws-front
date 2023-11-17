@@ -1,0 +1,21 @@
+HELP.md
+.gradle
+dist/
+dist/*
+node_modules/
+.npmrc
+
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+
+### VS Code ###
+.vscode/
+.history
+.eslintrc.js
+package-lock.json
+.nuxt

@@ -1,0 +1,33 @@
+.vue-numeric-input {
+  min-height:36px;
+}
+.vue-numeric-input .numeric-input {
+  font-size: 14px;
+  border-radius: 4px;
+  height:100%;
+  border-color: rgba(255, 255, 255, 0.4);
+  background: rgba(57, 64, 94, 0.3);
+  color: #fff;
+
+  &:hover {
+    border-color: rgba(255, 255, 255, 1);
+  }
+
+  &:focus {
+    border-color: rgba(255, 255, 255, 1);
+  }
+  
+  &:active {
+    border-color: rgba(255, 255, 255, 1);
+  }
+  
+}
+
+
+.vue-numeric-input.updown .btn-decrement .btn-icon {
+  border-color:  #fff transparent #fff !important;
+}
+
+.vue-numeric-input.updown .btn-increment .btn-icon{
+  border-color: transparent transparent #fff !important;
+}

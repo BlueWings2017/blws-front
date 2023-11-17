@@ -1,0 +1,15 @@
+@import './var.scss';
+@import './functions.scss';
+@mixin theme($key) {
+  $--theme-font-color: #{setStyle($config, $key, fontColor)} !global;
+  $--theme-bg-page: #{setStyle($config, $key, pageBackground)} !global;
+  $--theme-bg-card: #{setStyle($config, $key, cardBackground)} !global;
+  $--theme-hover-color: #{setStyle($config, $key, hover)} !global;
+  $--theme-button-close-color: #{setStyle($config, $key, btnClose)} !global;
+  $--theme-color-w-g5: #{setStyle($config, $key, w-g5)} !global;
+  $--theme-color-g5-w: #{setStyle($config, $key, g5-w)} !global;
+  $--theme-color-gc-g9: #{setStyle($config, $key, gc-g9)} !global;
+  $--theme-color-g5-gc: #{setStyle($config, $key, g5-gc)} !global;
+  $--theme-color-g7-g9: #{setStyle($config, $key, g7-g9)} !global;
+  $--theme-color-g9-g7: #{setStyle($config, $key, g9-g7)} !global;
+} 

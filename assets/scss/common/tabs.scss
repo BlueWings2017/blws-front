@@ -1,0 +1,95 @@
+// .v-tabs {
+//   height: 38px;
+//   flex: 0;
+//   & + .v-tabs-items {
+//     height: calc(100% - 38px) !important;
+//     width: 100%;
+//     background-color: transparent !important;
+//   }
+//   &-bar {
+//     height: 38px;
+//     background-color: transparent !important;
+//     border-bottom: 1px solid $--color-hover_d;
+//   }
+//   .v-tab {
+//     margin: 0 !important;
+//   }
+// }
+
+@each $theme in dark,
+light,
+colAquablue,
+colGreen,
+colBlue,
+colOrange,
+colGray,
+colNavy {
+  .v-application.#{$theme}-mode {
+    .v-tabs {
+      position: relative;
+      z-index: 2;
+
+      .v-slide-group__wrapper {
+        overflow: visible !important;
+        contain: initial !important;
+      }
+
+      .v-tab {
+        border: 1px solid transparent;
+        border-radius: 6px 6px 0 0;
+        border-bottom-color: map-deep-get(
+          $config,
+          #{$theme},
+          "v-tabs-active-border-color"
+        );
+        background-color: map-deep-get(
+          $config,
+          #{$theme},
+          "v-tabs-backgroundColor"
+        );
+        position: relative;
+        z-index: 2;
+        transform: translateY(1px);
+        letter-spacing: 0;
+        + .v-tab {
+          margin-left: 4px;
+        }
+      }
+
+      .v-tab--active {
+        border-top-color: map-deep-get(
+          $config,
+          #{$theme},
+          "v-tabs-active-border-color"
+        );
+        border-right-color: map-deep-get(
+          $config,
+          #{$theme},
+          "v-tabs-active-border-color"
+        );
+        border-left-color: map-deep-get(
+          $config,
+          #{$theme},
+          "v-tabs-active-border-color"
+        );
+        border-bottom-color: map-deep-get(
+          $config,
+          #{$theme},
+          "v-tabs-active-backgroundColor"
+        );
+        background-color: map-deep-get(
+          $config,
+          #{$theme},
+          "v-tabs-active-backgroundColor"
+        );
+      }
+    }
+    .v-tabs-items {
+      position: relative;
+      z-index: 1;
+      border-top: 1px
+        solid
+        map-deep-get($config, #{$theme}, "v-tabs-active-border-color");
+    }
+  }
+}

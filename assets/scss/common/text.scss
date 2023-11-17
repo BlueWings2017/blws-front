@@ -1,0 +1,105 @@
+.txt {
+  &__bar {
+    display: flex;
+    &:before {
+      content: "";
+      display: inline-block;
+      width: 2px;
+      height: 14px;
+      background-color: #ccc;
+      margin-right: 8px;
+      position: relative;
+      top: 3px;
+    }
+    &.log {
+      &:before {
+        background-color: $--color-primary__green;
+      }
+    }
+  }
+}
+
+.custom-title-1 {
+  font-size: 2.5rem; // 40px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.custom-title-2 {
+  font-size: 1.75rem; // 28px
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.custom-title-2-5 {
+  font-size: 1.5rem; // 28px
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.custom-title-3 {
+  font-size: 1.15rem; // 28px
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.custom-title-4 {
+  font-size: 1.125rem !important;
+  font-weight: 700 !important;
+  line-height: 1.25 !important;
+}
+.custom-title-6 {
+  font-size: 1.0rem !important;
+  font-weight: 700 !important;
+  line-height: 1.25 !important;
+}
+.custom-title-8 {
+  font-size: 0.75rem !important;
+  font-weight: 700 !important;
+  line-height: 1.0 !important;
+}
+
+.custom-text-1 {
+  font-size: 1.125rem; // 18px;
+  line-height: 1.2;
+}
+
+.custom-text-2 {
+  opacity: 0.6;
+  font-family: SpoqaHanSansNeo;
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 2.17;
+  letter-spacing: normal;
+  text-align: right;
+  color: #fff;
+}
+
+.text-color--white-0 {
+  color: map-deep-get($color, "white", "0") !important;
+}
+
+@each $theme in dark,
+light,
+colAquablue,
+colGreen,
+colBlue,
+colOrange,
+colGray,
+colNavy {
+  .v-application.#{$theme}-mode {
+    .text-color--activate {
+      color: map-deep-get($config, #{$theme}, "activate");
+    }
+
+    .text-color--non-activate {
+      color: map-deep-get($config, #{$theme}, "non-activate");
+    }
+
+    .text-color--sub {
+      color: map-deep-get($config, #{$theme}, "text-subcolor");
+    }
+  }
+}

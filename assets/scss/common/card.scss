@@ -1,0 +1,22 @@
+.v-card {
+  height: 100%;
+}
+
+@each $theme in dark,
+light,
+colAquablue,
+colGreen,
+colBlue,
+colOrange,
+colGray,
+colNavy {
+  // @include theme($theme);
+  .v-application.#{$theme}-mode {
+    .v-card {
+      color: map-deep-get($config, #{$theme}, "card-default-color");
+      .v-card__subtitle {
+        color: map-deep-get($config, #{$theme}, "card-subtitle");
+      }
+    }
+  }
+}

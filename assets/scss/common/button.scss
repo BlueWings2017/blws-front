@@ -1,0 +1,82 @@
+.v-btn {
+  background-color: #144985;
+  &-radius {
+    &__20 {
+      border-radius: 20px !important;
+    }
+    &__50per {
+      border-radius: 50% !important;
+    }
+  }
+  &__full {
+    width: 100%;
+  }
+  &__round {
+    min-width: 100px !important;
+    padding: 8px 25px !important;
+    border-radius: 20px !important;
+  }
+  &__excel {
+    background-color: #47535c !important;
+  }
+  &-bg {
+    &__transparent {
+      background-color: transparent !important;
+    }
+    &__blue {
+      background-color: $--color-primary__blue;
+    }
+    &__white-blue {
+      background-color: $--color-white;
+      color: $--color-primary__blue;
+    }
+  }
+  &__transparent {
+    border: 0;
+    background-color: transparent !important;
+  }
+  &.v-btn--icon.v-btn--tile {
+    border-radius: 4px;
+  }
+}
+
+@each $theme in dark,
+light,
+colAquablue,
+colGreen,
+colBlue,
+colOrange,
+colGray,
+colNavy {
+  @include theme($theme);
+  .v-application.#{$theme}-mode {
+    .v-btn-bg__w-g5 {
+      background-color: $--theme-color-w-g5;
+      i {
+        color: $--theme-color-g5-w;
+      }
+    }
+    .v-btn {
+      background-color: map-deep-get(
+        $config,
+        #{$theme},
+        "v-btn-backgroundColor"
+      );
+      color: map-deep-get($color, "white", "0");
+
+      &.v-btn--disabled {
+        opacity: 0.4;
+        background-color: map-deep-get(
+          $config,
+          #{$theme},
+          "v-btn-backgroundColor"
+        ) !important;
+        color: map-deep-get($color, "white", "0") !important;
+
+        .v-icon {
+          color: map-deep-get($color, "white", "0") !important;
+        }
+      }
+    }
+  }
+}

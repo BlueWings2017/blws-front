@@ -1,0 +1,59 @@
+.ft {
+  &-size {
+    &_12 { font-size: 12px !important; }
+    &_13 { font-size: 13px !important; }
+    &_14 { font-size: 14px !important; }
+    &_15 { font-size: 15px !important; }
+    &_16 { font-size: 16px !important; }
+    &_20 { font-size: 20px !important; }
+    &_24 { font-size: 24px !important; }
+    &_32 { font-size: 32px !important; }
+    &_40 { font-size: 40px !important; }
+  }
+  &-wt {
+    &_100 { font-weight: 100; }
+    &_200 { font-weight: 200; }
+    &_300 { font-weight: 300; }
+    &_400 { font-weight: 400; }
+    &_500 { font-weight: 500; }
+    &_600 { font-weight: 600; }
+    &_700 { font-weight: 700; }
+    &_800 { font-weight: 800; }
+    &_900 { font-weight: 900; }
+  }
+
+  &-clr {
+    &_g-9 { color: $--color-gray_9; }
+    &_g-7 { color: $--color-gray_7; }
+    &_g-c { color: $--color-gray_C; }
+    &_g-555 { color: $--color-gray_555 }
+    &_g-999 { color: $--color-gray_999; }
+    &_g-aaa { color: $--color-gray_aaa; }
+    &_blue { color: $--color-primary__blue; }
+    &_green { color: $--color-primary__green; }
+    &_yellow { color: $--color-sub__yellow; }
+    &_red { color: $--color-warning__red; }
+  }
+}
+
+@each $theme in dark,
+light,
+colAquablue,
+colGreen,
+colBlue,
+colOrange,
+colGray,
+colNavy {
+  @include theme($theme);
+  .v-application.#{$theme}-mode{
+    color: $--theme-color-w-g5;
+    .ft {
+      &-clr {
+        &_gc-g9 { color: $--theme-color-gc-g9; }
+        &_g5-gc { color: $--theme-color-g5-gc; }
+        &_g7-g9 { color: $--theme-color-g7-g9; }
+        &_g9-g7 { color: $--theme-color-g9-g7; }
+      }
+    }
+  }
+}

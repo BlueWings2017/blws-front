@@ -1,0 +1,56 @@
+// Ref: https://github.com/nuxt-community/vuetify-module#customvariables
+//
+// The variables you want to modify
+// $font-size-root: 20px;
+$body-font-family: -apple-system,BlinkMacSystemFont,"Malgun Gothic","맑은 고딕","Apple SD Gothic Neo",helvetica,sans-serif;
+$grid-gutter: 10px;
+$material-dark: (
+  "background": #212529,
+  "cards": #242940,
+  //"navigation-drawer": #000000,
+  "chips": rgba(255, 255, 255, 0.1)
+);
+
+$material-light: (
+  "background": #eef0f5,
+  "cards": #fff,
+  //"navigation-drawer": #fff,
+  "chips": #eee
+);
+
+$treeview-node-padding: 10px;
+$treeview-node-height: 40px;
+
+$banner-start-padding: 10px;
+$banner-end-padding: 10px;
+$banner-y-padding: 12px;
+
+$card-border-radius: 10px;
+$card-title-font-size: 1.25rem;
+$card-title-font-weight: 700;
+$card-title-line-height: 1.5;
+$card-subtitle-padding: 20px;
+
+$timeline-dot-small-size: 10px;
+
+$data-table-regular-row-height: 36px;
+
+$input-font-size: 14px;
+$input-max-height: 36px;
+$text-field-filled-full-width-outlined-slot-min-height: 36px;
+$text-field-solo-control-min-height: 36px;
+$text-field-line-height: 1.285;
+$text-field-enclosed-prepend-append-margin-top: 0;
+$text-field-enclosed-details-padding: 0 8px;
+
+$tab-font-size: 1rem; // 16px;
+$tab-font-weight: 400;
+$tabs-bar-height: 45px;
+$tabs-item-padding: 12px;
+
+$list-border-radius: 4px;
+$list-padding: 0;
+$list-item-min-height: 36px;
+$list-item-padding: 0;
+$list-item-title-font-size: 0.875rem; // 14px;
+$list-item-content-padding: 10px 7px;

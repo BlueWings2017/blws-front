@@ -1,0 +1,4031 @@
+// router-tab (header)
+@import "./var.scss";
+@import "./mixin.scss";
+// @import "./common/fonts.scss";
+// @import "./common/numericInput.scss";
+
+html,
+body {
+  overflow: auto;
+  word-wrap: break-word;
+  word-break: keep-all;
+}
+
+a {
+  color: inherit !important;
+  text-decoration: none !important;
+}
+
+.w100 {
+  width: 100%;
+}
+.w35p {
+  width: 35px;
+}
+.h50 {
+  height: 50%;
+}
+.h100 {
+  height: 100%;
+}
+.bd {
+  &-b1 {
+    border-bottom: 1px #39383d solid;
+    &:last-child {
+      border-bottom: 0;
+    }
+  }
+}
+
+.col-grp {
+  > .col {
+    padding: 7px 0 !important;
+  }
+}
+
+.searchFilter {
+  &.v-card {
+    padding: 17px (20px - ($column-spacer / 2)) !important;
+
+    & > .row {
+      & > [class*="col-"] {
+        padding: 0 ($column-spacer / 2);
+        box-sizing: border-box;
+      }
+    }
+
+    .row + .row {
+      margin-top: $row-spacer;
+    }
+  }
+}
+
+.v-application--wrap {
+  height: 100vh;
+
+  & > div {
+    height: 100%;
+  }
+}
+
+.v-main {
+  position: relative;
+}
+.v-main,
+.v-main__wrap,
+.container {
+  padding: 0;
+  height: 100%;
+}
+// .v-main__wrap > .container {
+//   background: #383f5d;
+// }
+
+// router-tab header
+.router-tab {
+  height: 100%;
+  &__header {
+    align-items: flex-start;
+    height: 50px !important;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  &-page {
+    height: 100%;
+  }
+
+  & .router-tab__container {
+    height: calc(100% - 72px);
+    padding: 30px 20px 20px;
+
+    .k-card-body {
+      padding: 17px 20px;
+      overflow-y: auto;
+    }
+  }
+
+  .router-tab__slot-end {
+    align-self: center;
+    display: flex;
+    align-items: center;
+    > * {
+      flex: none;
+      &.k-focus,
+      &:focus {
+        box-shadow: none;
+      }
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+
+    .v-menu + .v-btn {
+      padding: 0 3px;
+    }
+
+    .v-btn {
+      border-radius: 4px;
+    }
+  }
+  .router-tab__nav {
+    padding-left: 0;
+  }
+
+  .router-tab__scroll {
+    height: auto;
+  }
+
+  .router-tab__item {
+    height: 48px;
+    padding: 0 9px 0 20px;
+    border-top-width: 0px;
+    border-bottom-width: 0px;
+    border-radius: 0;
+    
+    & > span {
+      font-size: 12px;
+      // color: map-deep-get($config, #{$theme}, "color-primary");
+    }
+    .v-icon {
+      margin-left: 11px;
+      width: 9px;
+      height: 9px;
+      background-size: cover;
+
+      &:before,
+      &:after {
+        display: none;
+      }
+    }
+
+    &.is-active {
+      & > span {
+        font-weight: 700;
+      }
+    }
+
+    & + .router-tab__item {
+      margin-left: 0;
+    }
+  }
+
+  .router-tab__item.is-active.is-closable,
+  .router-tab__item:hover.is-closable {
+    padding: 0 9px 0px 20px;
+  }
+}
+
+// v-navigation-drawer (sidebar)
+.v-navigation-drawer {
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.15);
+
+  &--fixed {
+    z-index: 20;
+  }
+
+  .home {
+    display: block;
+    line-height: 0;
+  }
+
+  &__border {
+    display: none;
+  }
+
+  &__append {
+    padding: 0 17px;
+    margin: 0 0 26px;
+
+    > p {
+      margin-bottom: 0;
+    }
+  }
+
+  .v-treeview {
+    padding: 0 10px;
+    box-sizing: border-box;
+
+    .v-treeview-node__level {
+      width: 9px;
+    }
+
+    > .v-treeview-node {
+      margin-top: 10px;
+
+      &:first-child {
+        margin-top: 0;
+      }
+
+      > .v-treeview-node__root {
+        min-height: 44px !important;
+      }
+    }
+    .v-treeview-node {
+      .v-treeview-node__toggle {
+        display: none !important;
+      }
+
+      & > .v-treeview-node__root:before {
+        border-radius: 6px;
+        z-index: -1;
+      }
+
+      & > .v-treeview-node__root:hover:before {
+        opacity: 1 !important;
+      }
+
+      .v-treeview-node__children {
+        .v-treeview-node__label {
+          > button > span {
+            font-size: 0.875rem;
+          }
+        }
+      }
+    }
+
+    .v-treeview-node--click[aria-expanded="true"] {
+      & > .v-treeview-node__root:before {
+        opacity: 1 !important;
+      }
+    }
+
+    .v-treeview-node[aria-expanded="true"] {
+      &
+        > .v-treeview-node__root
+        > .v-treeview-node__content
+        > .v-treeview-node__label
+        > button
+        > .v-icon.mdi-chevron-down {
+        transform: rotate(-180deg);
+      }
+    }
+
+    .v-treeview-node__label {
+      & > button {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        // justify-content: center;
+      }
+
+      & .v-icon.mdi-chevron-down {
+        margin-left: auto;
+      }
+    }
+  }
+
+  .v-treeview-node--active {
+    &:before {
+      opacity: 1 !important;
+    }
+  }
+
+  &.v-navigation-drawer--mini-variant {
+    .home {
+      display: none;
+    }
+
+    .v-treeview-node__content {
+      margin-left: 0;
+    }
+
+    .v-treeview-node__content span:not(.v-icon),
+    .v-treeview-node__root > button,
+    .v-treeview-node__level,
+    .v-treeview-node__content .v-icon.mdi-chevron-down {
+      display: none;
+    }
+
+    .v-navigation-drawer__append {
+      display: none;
+    }
+  }
+}
+
+.v-application--is-ltr .v-messages {
+  display: none;
+}
+
+/* Search box */
+.search-box {
+  display: flex;
+  align-items: center;
+  &-label {
+    display: flex;
+    align-items: center;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    letter-spacing: 0.0178571429em;
+    white-space: nowrap;
+  }
+  label {
+    display: block;
+    padding-right: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: right;
+  }
+}
+
+.v-application--is-ltr .v-timeline--dense:not(.v-timeline--reverse):before {
+  height: calc(100% - 30px);
+  top: 10px;
+  left: 22px !important;
+  line-height: 0;
+}
+
+.v-label {
+  font-size: 0.875rem !important;
+}
+
+@each $theme in dark, light, colAquablue,colGreen, colBlue, colOrange, colGray, colNavy {
+  @include theme($theme);
+  .k-calendar-container .k-calendar-td.k-selected .k-link {
+    background-color: map-deep-get($config, #{$theme}, "color-primary") !important;
+  }
+  /* Popup Style */
+  .k-window {
+    .k-window-titlebar {
+      padding: 10px 20px;
+      min-height: 40px;
+      background-color: map-deep-get($config, #{$theme}, "color-primary");
+      color: map-deep-get($config, #{$theme}, "ft-color-basic");
+  
+      .k-window-title {
+        font-size: 14px;
+      }
+      .k-window-titlebar-actions {
+        .k-button-md {
+          &.k-icon-button {
+            .k-button-icon {
+              &.k-i-x {
+                background-image: url("@/assets/images/icon/ico-modal-close.png");
+                background-repeat: no-repeat;
+                background-size: 15px;
+                background-position: 50%;
+  
+                &:before {
+                  display: none;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    .k-window-content {
+      padding: 20px;
+      
+      .k-treeview {
+        font-size: 13px;
+        color: #475663;
+  
+        .k-treeview-leaf {
+          margin: 4px 0;
+          padding: 0 3px;
+          border-radius: 0;
+          &.k-selected {
+            background-color: #023671;
+          }
+        }
+      }
+      .k-treeview-toggle {
+        .k-icon {
+          width: 13px;
+          height: 13px;
+          background-repeat: no-repeat;
+          background-size: 100% auto;
+          background-position: 50% 50%;
+  
+          &:before {
+            display: none;
+          }
+          &.k-i-expand {
+            background-image: url("@/assets/images/icon/ico-tree-expand.png");
+          }
+          &.k-i-collapse {
+            background-image: url("@/assets/images/icon/ico-tree-collapse.png");
+          }
+        }
+      }
+      /* Checkbox Style */
+      .k-checkbox {
+        width: 18px;
+        height: 18px;
+        background-color: #ffffff;
+
+        &.k-checked,
+        &:checked {
+          background-color: map-deep-get($config, #{$theme}, "color-primary");
+          border-color: map-deep-get($config, #{$theme}, "color-primary");
+        }
+        &:disabled,
+        &.k-disabled {
+          opacity: 1;
+          background-color: map-deep-get($config, #{$theme}, "bg-color-disabled");
+          border-color: map-deep-get($config, #{$theme}, "bd-color-disabled");
+
+          &:checked {
+            background-color: map-deep-get($config, #{$theme}, "bg-color-disabled2");
+            border-color: map-deep-get($config, #{$theme}, "bg-color-disabled2");
+          }
+        }
+      }
+      .k-radio {
+        width: 18px;
+        height: 18px;
+        background-color: #ffffff;
+
+        &.k-checked,
+        &:checked {
+          background-color: map-deep-get($config, #{$theme}, "color-primary");
+          border-color: map-deep-get($config, #{$theme}, "color-primary");
+        }
+        &:disabled,
+        &.k-disabled {
+          opacity: 1;
+          background-color: map-deep-get($config, #{$theme}, "bg-color-disabled");
+          border-color: map-deep-get($config, #{$theme}, "bd-color-disabled");
+        }
+      }
+      .k-edit-buttons {
+        margin-left: -20px;
+        margin-right: -20px;
+        border-top-width: 1px;
+        border-style: solid;
+        justify-content: center;
+
+        border-color: map-deep-get($config, #{$theme}, "bd-color-basic");
+        .k-button {
+          flex-basis: 80px;
+        }
+
+        /* Button Style */
+        .k-button-solid-primary {
+          color: map-deep-get($config, #{$theme}, "ft-color-basic") !important;
+          background-color: map-deep-get($config, #{$theme}, "color-primary");
+          border-color: map-deep-get($config, #{$theme}, "color-primary");
+          background-image: none;
+          &:hover {
+            background-color: map-deep-get(
+              $config,
+              #{$theme},
+              "color-primary-hover"
+            );
+            border-color: map-deep-get($config, #{$theme}, "color-primary");
+          }
+          &.k-focus,
+          &:focus {
+            box-shadow: none;
+          }
+        }
+        .k-button-solid-secondary {
+          color: map-deep-get($config, #{$theme}, "ft-color-basic") !important;
+          background-color: map-deep-get($config, #{$theme}, "bg-color-secondary");
+          border-color: map-deep-get($config, #{$theme}, "bg-color-secondary");
+
+          &:hover {
+            background-color: map-deep-get(
+              $config,
+              #{$theme},
+              "bg-color-secondary-hover"
+            );
+            border-color: map-deep-get($config, #{$theme}, "bg-color-secondary");
+          }
+          &.k-focus,
+          &:focus {
+            box-shadow: none;
+          }
+        }
+      }
+      .modal-msg {
+        padding-top: 13px;
+        padding-bottom: 9px;
+        text-align: center;
+      }
+  
+      .form-group-wrap { // popup 안 조회조건
+        //margin-bottom: 10px;
+      }
+    }
+    .k-actions {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+  }
+  
+  /* Pivot Style */
+  .k-pivot-fieldmenu {
+    .k-item {
+      &.k-menu-separator {
+        margin: 0 !important;
+      }
+      .k-menu-link {
+        align-items: center !important;
+        font-size: 13px;
+      }
+    }
+  }
+  .k-filter-menu {
+    .k-button-filter {
+      background-image: none;
+      &.k-focus,
+      &:focus {
+        box-shadow: none;
+      }
+    }
+  }
+  .k-pivot-fieldmenu {
+    .k-input-md,
+    .k-picker-md {
+      min-height: 34px;
+      font-size: 14px;
+      font-weight: bold;
+
+      .k-button-md {
+        height: auto;
+      }
+    }
+    .k-picker-solid,
+    .k-input-solid {
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+
+      &:focus-within {
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+      }
+      &.k-hover,
+      &:hover {
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+      }
+    }
+  }
+
+  
+  .dark-mode {
+
+    .k-menu-group .k-item > .k-link:active, .k-menu-group .k-item > .k-link.k-active, .k-menu-group .k-item > .k-link.k-selected, .k-menu.k-context-menu .k-item > .k-link:active, .k-menu.k-context-menu .k-item > .k-link.k-active, .k-menu.k-context-menu .k-item > .k-link.k-selected {background-color:#6760f6 !important;}
+    
+    .k-filter-menu {
+      .k-button-filter {
+        color: #ffffff !important;
+        background-color: #878d9f;
+        border-color: #878d9f;
+        &:hover {
+          background-color: #626778;
+          border-color: #626778;
+        }
+      }
+      .k-button-clear {
+        color: #ffffff !important;
+        background-color: #878d9f !important;
+        border-color: #878d9f !important;
+        &:hover {
+          background-color: #626778 !important;
+          border-color: #626778 !important;
+        }
+      }
+    }
+
+    .k-pivot-fieldmenu {
+      .k-picker-solid,
+      .k-input-solid {
+        color: #d7d6dc;
+        background-color: #1b2531;
+        border-color: #313e51;
+
+        &:focus-within {
+          border-color: #6760f6;
+        }
+        &.k-hover,
+        &:hover {
+          background-color: #2c374d;
+          border-color: #6760f6;
+        }
+      }
+    }
+
+    /* Dropdown Style */
+    .k-animation-container {
+      .k-list-item.k-selected, // selected
+      .k-selected.k-list-optionlabel {
+        color: #d7d6dc;
+        background-color: #6760f6;
+        &.k-hover,
+        :hover {
+          color: #d7d6dc;
+          background-color: #6760f6;
+        }
+      }
+      .k-list-item:hover, // hover
+      .k-list-optionlabel:hover,
+      .k-list-item.k-hover,
+      .k-hover.k-list-optionlabel {
+        color: #d7d6dc;
+        background-color: #2c374d;
+      }
+      .k-list {
+        color: #d7d6dc;
+      }
+      .k-list-item.k-selected:hover, // selected + hover
+      .k-selected.k-list-optionlabel:hover,
+      .k-list-item.k-selected.k-hover,
+      .k-selected.k-hover.k-list-optionlabel {
+        color: #d7d6dc;
+        background-color: #6760f6;
+      }
+    }
+
+    /* SplitButton not in v-aplication*/
+    .k-menu-popup {
+      .k-item {
+        &.k-menu-item {
+          padding-right: 0;
+        }
+        &:focus, 
+        &.k-focus {
+          .k-link {
+            color: #d7d6dc;
+            background-color: #6760f6;
+          }
+        }
+        .k-menu-link {
+          &:hover {
+            color: #d7d6dc;
+            background-color: #2c374d;
+          }
+          &.on {
+            color: #d7d6dc;
+            background-color: #6760f6;
+          }
+        }
+      }
+    }
+    .k-menu-group {
+      .k-item {
+        &.k-menu-item {
+          padding-right: 0;
+        }
+        &:focus, 
+        &.k-focus {
+          .k-link {
+            color: #d7d6dc;
+            background-color: #6760f6;
+          }
+        }
+        .k-menu-link {
+          &.on {
+              color: #d7d6dc;
+              background-color: #6760f6;
+          }
+        }
+      }
+    }
+    .k-menu {
+      &.k-context-menu {
+        .k-item {
+          &.k-menu-item {
+            padding-right: 0;
+          }
+          &:focus,
+          &.k-focus {
+            .k-link {
+              color: #d7d6dc;
+              background-color: #6760f6;
+            }
+          }
+          .k-menu-link {
+            &.on {
+              color: #d7d6dc;
+              background-color: #6760f6;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  /* SplitButton not in v-aplication*/
+  .k-menu-group {
+    .k-item {
+      &.k-menu-item {
+        padding-right: 0;
+      }
+      &:focus, 
+      &.k-focus {
+        .k-link {
+          // box-shadow: none;
+          // color: #ffffff;
+        }
+      }
+    }
+  }
+  .k-menu {
+    &.k-context-menu {
+      .k-item {
+        &.k-menu-item {
+          padding-right: 0;
+        }
+        &:focus,
+        &.k-focus {
+          .k-link {
+            // box-shadow: none;
+            // color: #ffffff;
+          }
+        }
+      }
+    }
+  }
+
+  .v-application.#{$theme}-mode {
+    min-width: 768px;
+    ::-webkit-scrollbar {
+      width: 4px;
+      border-radius: 3px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background-color: map-deep-get($config, #{$theme}, "scrollbar-track");
+    }
+
+    ::-webkit-scrollbar-thumb {
+      width: 4px;
+      border-radius: 3px;
+      background-color: map-deep-get($config, #{$theme}, "scrollbar-thumb");
+      background-clip: content-box;
+    }
+
+    /* Pivot Style */
+    .k-pivotgrid-wrapper {
+      .k-pivotgrid-configurator-content {
+        padding: 0 !important;
+      }
+      + .k-chart {
+        margin-top:10px;
+      }
+      + #chart {
+        margin-top:10px;
+      }
+    }
+
+    .k-pivotgrid-wrapper {
+      .k-pivot-rowheaders {
+        @if $theme == dark {
+          background-color: #283142;
+        } @else {
+          background-color: #f8f9fa;
+        }
+      }
+      .k-pivot-toolbar {
+        @if $theme == dark {
+          background-color: #283142;
+        } @else {
+          background-color: #f8f9fa;
+        }
+      }
+      .k-grid-content {
+        background-color: map-deep-get($config, #{$theme}, "bg-color-basic");
+      }
+      .k-treeview {
+        font-size: 13px;
+        color: map-deep-get($config, #{$theme}, "ft-color-primary");
+  
+        .k-treeview-leaf {
+          margin: 4px 0 4px 4px;
+          padding: 0 5px;
+          border-radius: 0;
+          &.k-selected {
+            background-color: map-deep-get($config, #{$theme}, "color-primary");
+          }
+        }
+      }
+      .k-treeview-toggle {
+        .k-icon {
+          width: 13px;
+          height: 13px;
+          background-repeat: no-repeat;
+          background-size: 100% auto;
+          background-position: 50% 50%;
+  
+          &:before {
+            display: none;
+          }
+          &.k-i-expand {
+            @if $theme == dark {
+              background-image: url("@/assets/images/icon/ico-tree-expand-dark.png");
+            } @else {
+              background-image: url("@/assets/images/icon/ico-tree-expand.png");
+            }
+          }
+          &.k-i-collapse {
+            @if $theme == dark {
+              background-image: url("@/assets/images/icon/ico-tree-collapse-dark.png");
+            } @else {
+              background-image: url("@/assets/images/icon/ico-tree-collapse.png");
+            }
+          }
+        }
+      }
+    }
+    
+    .k-pivotgrid-configurator-panel {
+      &.kendo-jquery {
+        color: map-deep-get($config, #{$theme}, "ft-color-primary");
+        .k-pivotgrid-configurator-content {
+          padding: 18px;
+  
+          .k-column-fields {
+            padding: 9px 9px;
+            border-radius: 5px;
+          }
+        }
+      }
+    }
+    .k-chip {
+      &.kchip-md {
+        font-size: 14px;
+      }
+      &.k-chip-solid-base {
+        border-color: map-deep-get($config, #{$theme}, "bd-color-basic");
+        background-color: #f5f5f5;
+        color: #475663;
+  
+        &:hover {
+          background-color: #eaeaec;
+  
+          .k-icon {
+            color: map-deep-get($config, #{$theme}, "color-primary");
+          }
+        }
+      }
+      &.k-rounded-full {
+        border-radius: 5px;
+      }
+  
+      .k-icon {
+        color: #aaafbb;
+      }
+    }
+
+    /* Popup Style */
+  .k-window {
+    &.k-dialog {
+      min-width: 280px;
+
+      .k-window-titlebar,
+      .k-dialog-titlebar {
+        padding: 10px 20px;
+        min-height: 40px;
+        background-color: map-deep-get($config, #{$theme}, "color-primary");
+        color: map-deep-get($config, #{$theme}, "ft-color-basic");
+
+        .k-window-title {
+          font-size: 14px;
+        }
+        .k-window-titlebar-actions {
+          .k-button-md {
+            &.k-icon-button {
+              .k-button-icon {
+                &.k-i-x {
+                  background-image: url("@/assets/images/icon/ico-modal-close.png");
+                  background-repeat: no-repeat;
+                  background-size: 15px;
+                  background-position: 50%;
+
+                  &:before {
+                    display: none;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      .k-window-content,
+      .k-dialog-content {
+        padding: 20px;
+
+        .modal-msg {
+          padding-top: 13px;
+          padding-bottom: 9px;
+          text-align: center;
+        }
+
+        .form-group-wrap { // popup 안 조회조건
+          margin-bottom: 10px;
+        }
+      }
+      .k-actions {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+    }
+  }
+
+    /* Menu 세로형 Style */  
+    .v-navigation-drawer {
+      background-color: map-deep-get($config, #{$theme}, "bg-color-leftMenu");
+
+      .k-treeview {
+        color: #a4a9b6;
+        font-size: 0;
+
+        .k-treeview-lines {
+          //1depth
+          padding: 0;
+          > .k-treeview-item {
+            > .k-treeview-mid {
+              .k-treeview-leaf {
+                // padding: 10px 15px 10px 20px !important;
+
+                .k-icon,
+                .k-image,
+                .k-sprite {
+                  margin-right: 0px;
+                }
+                .ic-mes-setting {
+                  width: 24px;
+                  height: 24px;
+                  background-image: url("@/assets/images/icon/ic-mes-setting.svg");
+                  background-size: cover;
+                }
+                .ic-mes-modeling {
+                  width: 24px;
+                  height: 24px;
+                  background-image: url("@/assets/images/icon/ic-mes-modeling.svg");
+                  background-size: cover;
+                }
+                .ic-mes-process {
+                  width: 24px;
+                  height: 24px;
+                  background-image: url("@/assets/images/icon/ic-mes-process.svg");
+                  background-size: cover;
+                }
+                .ic-mes-matarial {
+                  width: 24px;
+                  height: 24px;
+                  background-image: url("@/assets/images/icon/ic-mes-matarial.svg");
+                  background-size: cover;
+                }
+                .ic-mes-system {
+                  width: 24px;
+                  height: 24px;
+                  background-image: url("@/assets/images/icon/ic-mes-system.svg");
+                  background-size: cover;
+                }
+                .ic-mes-equipment {
+                  width: 24px;
+                  height: 24px;
+                  background-image: url("@/assets/images/icon/ic-mes-equipment.svg");
+                  background-size: cover;
+                }
+                .ic-mes-monitoring {
+                  width: 24px;
+                  height: 24px;
+                  background-image: url("@/assets/images/icon/ic-mes-monitoring.svg");
+                  background-size: cover;
+                }
+                .ic-mes-quality {
+                  width: 24px;
+                  height: 24px;
+                  background-image: url("@/assets/images/icon/ic-mes-quality.png");
+                  background-size: cover;
+                }
+              }
+            }
+          }
+        }
+        .k-treeview-item {
+          padding: 0 !important;
+          cursor: pointer;
+
+          &[aria-expanded="true"] {
+            //확장
+            .k-treeview-mid {
+              .k-treeview-leaf {
+                .treeNmText {
+                  color: map-deep-get($config, #{$theme}, "color-primary");
+                }
+                .v-icon {
+                  color: map-deep-get($config, #{$theme}, "ft-color-basic");
+                }
+                .ic-mes-setting {
+                  width: 24px;
+                  height: 24px;
+                  background-image: url("@/assets/images/icon/ic-mes-setting-O.svg");
+                  background-size: cover;
+                }
+                .ic-mes-modeling {
+                  width: 24px;
+                  height: 24px;
+                  background-image: url("@/assets/images/icon/ic-mes-modeling-O.svg");
+                  background-size: cover;
+                }
+                .ic-mes-process {
+                  width: 24px;
+                  height: 24px;
+                  background-image: url("@/assets/images/icon/ic-mes-process-O.svg");
+                  background-size: cover;
+                }
+                .ic-mes-matarial {
+                  width: 24px;
+                  height: 24px;
+                  background-image: url("@/assets/images/icon/ic-mes-matarial-O.svg");
+                  background-size: cover;
+                }
+                .ic-mes-system {
+                  width: 24px;
+                  height: 24px;
+                  background-image: url("@/assets/images/icon/ic-mes-system-O.svg");
+                  background-size: cover;
+                }
+                .ic-mes-equipment {
+                  width: 24px;
+                  height: 24px;
+                  background-image: url("@/assets/images/icon/ic-mes-equipment-O.svg");
+                  background-size: cover;
+                }
+                .ic-mes-monitoring {
+                  width: 24px;
+                  height: 24px;
+                  background-image: url("@/assets/images/icon/ic-mes-monitoring-O.svg");
+                  background-size: cover;
+                }
+                .ic-mes-quality {
+                  width: 24px;
+                  height: 24px;
+                  background-image: url("@/assets/images/icon/ic-mes-quality-O.png");
+                  background-size: cover;
+                }
+              }
+            }
+          }
+          .k-treeview-mid {
+            height: auto;
+
+            .k-treeview-leaf {
+              // padding: 7px 15px 8px 44px !important;
+              width: 100% !important;
+              height: auto;
+
+              &.k-hover,
+              &:hover {
+                background-color: inherit;
+                color: map-deep-get($config, #{$theme}, "ft-color-basic");
+              }
+              &.k-focus,
+              &:focus {
+                box-shadow: none;
+
+                .treeChildNmText {
+                  color: map-deep-get($config, #{$theme}, "ft-color-primary");
+                  background-color: map-deep-get($config, #{$theme}, "menu-2depth-active-bg");
+                  box-shadow: inset 7px 0 9px -7px rgba(0, 0, 0, 0.4);
+                                    
+                }
+              }
+              // .k-treeview-leaf-text {
+              //   display: inline-block;
+              //   width: 100%;
+              // }
+              .v-icon {
+                width: 24px;
+                height: 24px;
+                color: map-deep-get($config, #{$theme}, "color-secondary");
+
+                &.mdi-square-medium {
+                  display: none;
+                }
+              }
+            }
+          }
+          .treeNmText {
+            display: inline-block;
+            // padding-right: 3px;
+            // width: calc(100% - 36px);
+            font-size: 13px;
+            font-weight: 700;
+            line-height: 24px;
+            text-overflow: ellipsis !important;
+            white-space: nowrap;
+            overflow: hidden;
+            vertical-align: middle;
+            color: map-deep-get($config, #{$theme}, "ft-color-basic");
+            &.on {
+              color: map-deep-get($config, #{$theme}, "ft-color-primary");
+            }
+          }
+          .treeChildNmText {
+            display: inline-block;
+            // width: calc(100% - 5px);
+            font-size: 13px;
+            color: map-deep-get($config, #{$theme}, "ft-color-primary");
+            text-overflow: ellipsis !important;
+            white-space: nowrap;
+            overflow: hidden;
+            vertical-align: middle;
+
+            // &.on {
+            //   color: map-deep-get($config, #{$theme}, "ft-color-basic");
+            // }
+          }
+        }
+      }
+    }
+
+    /* Menu 가로형 Style */  
+    .v-app-bar {
+      z-index: 3;
+      height: auto !important;
+      box-shadow: none !important;
+    }
+    .v-toolbar__content {
+      z-index: auto;
+      padding:0 !important;height:auto !important;
+    }
+    .header-horizontal-wrap {
+      display: flex;
+      flex-direction: column;
+      flex: auto;
+
+      .header-horizontal {
+        display: flex;
+        border-top-width: 1px;
+        border-right-width: 1px;
+        border-bottom-width: 0px;
+        border-left-width: 1px;
+        border-style: solid;
+        box-sizing: border-box;
+
+        border-color: map-deep-get($config, #{$theme}, "bd-color-secondary");
+        background-color: map-deep-get($config, #{$theme}, "bg-color-basic");
+
+        .lnb-logo {
+          flex-basis: 140px;
+          height: 50px;
+          @if $theme == dark {
+            background-image: url("@/assets/images/icon/logo_b.svg") !important;
+          } @else {
+            background-image: url("@/assets/images/icon/logo.svg") !important;
+          }
+          background-position: 50% 50%;
+          border-top-width: 0;
+          border-bottom-width: 0;
+          border-left-width: 0;
+          border-right-width: 1px;
+          border-style: solid;
+          border-color: map-deep-get($config, #{$theme}, "bd-color-secondary");
+
+          a {
+            display: block;
+          }
+        }
+        .gnb-wrap {
+          position: relative;
+          flex-grow: 1;
+          // @if $theme == dark {
+          //   background-color: #283142;
+          // } @else {
+          //   background-color: #023671;
+          // }
+          background-color: map-deep-get($config, #{$theme}, "bg-color-leftMenu");
+  
+
+          &:hover {
+            transition: background .25s;
+            background-color: map-deep-get($config, #{$theme}, "bg-color-basic");
+
+            ul {
+              li {
+                span {
+                  color: #a4a9b6;
+                }
+                &.on {
+                  &.ic-mes-setting {
+                    span {
+                      &:before {
+                        @if $theme == dark {
+                          background-image: url("@/assets/images/icon/ic-mes-setting-O.png");
+                        } @else {
+                          background-image: url("@/assets/images/icon/ic-mes-setting-tf-O.png");
+                        }
+                      }
+                    }
+                  }
+                  &.ic-mes-modeling {
+                    span {
+                      &:before {
+                        @if $theme == dark {
+                          background-image: url("@/assets/images/icon/ic-mes-modeling-O.png");
+                        } @else {
+                          background-image: url("@/assets/images/icon/ic-mes-modeling-tf-O.png");
+                        }
+                      }
+                    }
+                  }
+                  &.ic-mes-process {
+                    span {
+                      &:before {
+                        @if $theme == dark {
+                          background-image: url("@/assets/images/icon/ic-mes-process-O.png");
+                        } @else {
+                          background-image: url("@/assets/images/icon/ic-mes-process-tf-O.png");
+                        }
+                      }
+                    }
+                  }
+                  &.ic-mes-matarial {
+                    span {
+                      &:before {
+                        @if $theme == dark {
+                          background-image: url("@/assets/images/icon/ic-mes-matarial-O.png");
+                        } @else {
+                          background-image: url("@/assets/images/icon/ic-mes-matarial-tf-O.png");
+                        }
+                      }
+                    }
+                  }
+                  &.ic-mes-system {
+                    span {
+                      &:before {
+                        @if $theme == dark {
+                          background-image: url("@/assets/images/icon/ic-mes-system-O.png");
+                        } @else {
+                          background-image: url("@/assets/images/icon/ic-mes-system-tf-O.png");
+                        }
+                      }
+                    }
+                  }
+                  &.ic-mes-equipment {
+                    span {
+                      &:before {
+                        @if $theme == dark {
+                          background-image: url("@/assets/images/icon/ic-mes-equipment-O.png");
+                        } @else {
+                          background-image: url("@/assets/images/icon/ic-mes-equipment-tf-O.png");
+                        }
+                      }
+                    }
+                  }
+                  &.ic-mes-quality {
+                    span {
+                      &:before {
+                        @if $theme == dark {
+                          background-image: url("@/assets/images/icon/ic-mes-quality-O.png");
+                        } @else {
+                          background-image: url("@/assets/images/icon/ic-mes-quality-tf-O.png");
+                        }
+                      }
+                    }
+                  }
+                  &.ic-mes-monitoring {
+                    span {
+                      &:before {
+                        @if $theme == dark {
+                          background-image: url("@/assets/images/icon/ic-mes-monitoring-O.png");
+                        } @else {
+                          background-image: url("@/assets/images/icon/ic-mes-monitoring-tf-O.png");
+                        }
+                      }
+                    }
+                  }
+
+                  span {
+                    @if $theme == dark {
+                      color: #ffffff;
+                    } @else {
+                      color: map-deep-get($config, #{$theme}, "color-primary");
+                    }
+                    &:after {
+                      @if $theme == dark {
+                        background-image: url("@/assets/images/icon/ico-arrow-gnb-dark-O.png");
+                      } @else {
+                        background-image: url("@/assets/images/icon/ico-arrow-gnb-O.png");
+                      }
+                    }
+                  }
+                }
+              }
+            }
+            .gnb-2d-wrap {
+              visibility: visible;
+              opacity: 1;
+              height: 200px;
+            }
+          }
+
+          ul {
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            height: 48px;
+
+            li {
+              list-style: none;
+              cursor: pointer;
+
+              span {
+                position: relative;
+                padding-right: 16px;
+                padding-left: 27px;
+                font-size: 13px;
+                font-weight: bold;
+                color: #fff;
+        
+                &:before {
+                  content: '';
+                  display: inline-block;
+                  position: absolute;
+                  top: 50%;
+                  left: 0;
+                  margin-top: -12px;
+                  width: 24px;
+                  height: 24px;
+                  background-repeat: no-repeat;
+                  background-size: cover;
+                }
+                &:after {
+                  content: '';
+                  display: inline-block;
+                  position: absolute;
+                  top: 50%;
+                  right: 0;
+                  margin-top: -3px;
+                  width: 7px;
+                  height: 6px;
+                  background-repeat: no-repeat;
+                  background-size: cover;
+                  background-image: url("@/assets/images/icon/ico-arrow-gnb.png");
+                }
+              }
+
+              &.ic-mes-setting {
+                span {
+                  &:before {
+                    background-image: url("@/assets/images/icon/ic-mes-setting.png");
+                  }
+                }
+              }
+              &.ic-mes-modeling {
+                span {
+                  &:before {
+                    background-image: url("@/assets/images/icon/ic-mes-modeling.png");
+                  }
+                }
+              }
+              &.ic-mes-process {
+                span {
+                  &:before {
+                    background-image: url("@/assets/images/icon/ic-mes-process.png");
+                  }
+                }
+              }
+              &.ic-mes-matarial {
+                span {
+                  &:before {
+                    background-image: url("@/assets/images/icon/ic-mes-matarial.png");
+                  }
+                }
+              }
+              &.ic-mes-system {
+                span {
+                  &:before {
+                    background-image: url("@/assets/images/icon/ic-mes-system.png");
+                  }
+                }
+              }
+              &.ic-mes-equipment {
+                span {
+                  &:before {
+                    background-image: url("@/assets/images/icon/ic-mes-equipment.png");
+                  }
+                }
+              }
+              &.ic-mes-quality {
+                span {
+                  &:before {
+                    background-image: url("@/assets/images/icon/ic-mes-quality.png");
+                  }
+                }
+              }
+              &.ic-mes-monitoring {
+                span {
+                  &:before {
+                    background-image: url("@/assets/images/icon/ic-mes-monitoring.png");
+                  }
+                }
+              }
+            }
+          }
+
+          .gnb-2d-wrap {
+            visibility: hidden;
+            opacity: 0;
+            height: 0;
+            position: fixed;
+            top: 49px;
+            left: 0;
+            padding: 0;
+            width: 100%;
+            border-width: 1px;
+            border-style: solid;
+            box-shadow: 0 10px 11px 0 rgba(0, 0, 0, 0.05);
+            transition: all .25s;
+            border-color: map-deep-get($config, #{$theme}, "bd-color-secondary");
+            background-color: map-deep-get($config, #{$theme}, "bg-color-basic");
+
+            .gnb-2d {
+              position: absolute;
+              top: 15px;
+              left: 0;
+              overflow: hidden;
+
+              span {
+                float: left;
+                margin-bottom: 15px;
+                margin-right: 25px;
+                width: 106px;
+                font-size: 12px;
+                cursor: pointer;
+                @if $theme == dark {
+                  color: #a4a9b6;
+                } @else {
+                  color: #475663;
+                }
+
+                &:nth-child(4n+1) {
+                  clear: both;
+                }
+                &.on {
+                  font-weight: bold;
+                  text-decoration: underline;
+                  @if $theme == dark {
+                    color: #ffffff;
+                  } @else {
+                    color: map-deep-get($config, #{$theme}, "color-primary");
+                  }
+                }
+                &:hover {
+                  font-weight: bold;
+                  text-decoration: underline;
+                  @if $theme == dark {
+                    color: #ffffff;
+                  } @else {
+                    color: map-deep-get($config, #{$theme}, "color-primary");
+                  }
+                }
+                
+              }
+            }
+          }
+        }
+        .slot-end {
+          display: flex; 
+          align-items: center; 
+          align-self: center;
+        }
+      }
+    }
+
+    // Top frame button
+    .btn-tf-LmToggle {
+      padding: 0;
+      width: 50px;
+      height: 48px !important;
+
+      &.k-button-solid-base {
+        background-image: none;
+        border-left-width: 1px;
+        border-right-width: 1px;
+        border-top-width: 0;
+        border-bottom-width: 0;
+        border-style: solid;
+        border-radius: 0;
+        box-shadow: none;
+        background-color: map-deep-get($config, #{$theme}, "bg-color-basic");
+        border-color: map-deep-get($config, #{$theme}, "bd-color-secondary");
+
+        &:hover {
+          .k-icon {
+            &.ico-lm-close {
+              @if $theme == dark {
+                background-image: url("@/assets/images/icon/ico-Lm-close-dark-O.png");
+              } @else {
+                background-image: url("@/assets/images/icon/ico-Lm-close-O.png");
+              }
+            }
+            &.ico-lm-open {
+              @if $theme == dark {
+                background-image: url("@/assets/images/icon/ico-Lm-open-dark-O.png");
+              } @else {
+                background-image: url("@/assets/images/icon/ico-Lm-open-O.png");
+              }
+            }
+          }
+        }
+      }
+      .k-button-text {
+        line-height: 1;
+
+        .k-icon {
+          width: 18px;
+          height: 18px;
+
+          &.ico-lm-close {
+            background-image: url("@/assets/images/icon/ico-Lm-close-D.png");
+          }
+          &.ico-lm-open {
+            background-image: url("@/assets/images/icon/ico-Lm-open-D.png");
+          }
+        }
+      }
+    }
+    .btn-tf-tabClose {
+      margin-left: -1px;
+
+      .k-button-solid-base {
+        background-image: none;
+        border-left-width: 1px;
+        border-right-width: 1px;
+        border-top-width: 0;
+        border-bottom-width: 0;
+        border-style: solid;
+        box-shadow: none;
+        background-color: map-deep-get($config, #{$theme}, "bg-color-basic");
+        border-color: map-deep-get($config, #{$theme}, "bd-color-secondary");
+        color: map-deep-get($config, #{$theme}, "router-tab-item-color");
+
+        &:hover {
+          color: map-deep-get($config, #{$theme}, "router-tab-item-hover-color");
+        }
+      }
+      > button {
+        height: 48px;
+        line-height: 48px;
+        font-size: 14px;
+        font-weight: bold;
+        border-radius: 0;
+
+        &:first-of-type {
+          padding-left: 18px;
+          padding-right: 7px;
+          border-right: 0;
+        }
+        &:last-of-type {
+          min-width: 32px;
+          border-left: 0;
+
+          .k-button-text {
+            line-height: 1;
+            .k-icon {
+              &.k-i-caret-alt-down {
+                width: 13px;
+                height: 8px;
+                background-image: url("@/assets/images/icon/ico-dropdown.png");
+                &:before {
+                  display: none;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    .btn-tf-text-button {
+      margin-left: -1px;
+
+      .k-button-solid-base {
+        background-image: none;
+        border-left-width: 1px;
+        border-right-width: 1px;
+        border-top-width: 0;
+        border-bottom-width: 0;
+        border-style: solid;
+        box-shadow: none;
+        background-color: map-deep-get($config, #{$theme}, "bg-color-basic");
+        border-color: map-deep-get($config, #{$theme}, "bd-color-secondary");
+        color: map-deep-get($config, #{$theme}, "router-tab-item-color");
+
+        &:hover {
+          color: map-deep-get($config, #{$theme}, "router-tab-item-hover-color");
+        }
+      }
+
+      >button {
+        height: 48px;
+        line-height: 48px;
+        font-size: 14px;
+        font-weight: bold;
+        border-radius: 0;
+
+        &:first-of-type {
+          padding-left: 18px;
+          padding-right: 18px;
+        }
+
+        &:last-of-type {
+          display:none;
+        }
+      }
+    }
+    .btn-tf-refresh {
+      margin-left: -1px;
+      width: 50px;
+      height: 48px;
+      border: 0;
+
+      .k-button-solid-base {
+        background-image: none;
+        border-left-width: 1px;
+        border-right-width: 1px;
+        border-top-width: 0;
+        border-bottom-width: 0;
+        border-style: solid;
+        box-shadow: none;
+        background-color: map-deep-get($config, #{$theme}, "bg-color-basic");
+        border-color: map-deep-get($config, #{$theme}, "bd-color-secondary");
+        color: map-deep-get($config, #{$theme}, "router-tab-item-color");
+
+        &:hover {
+          color: map-deep-get($config, #{$theme}, "router-tab-item-hover-color");
+        }
+      }
+      > button {
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+        background-repeat: no-repeat;
+        background-position: right 3px top 1px;
+        background-size: auto 34px;
+      }
+
+      &.t1 {
+        > button {
+          background-image: url("@/assets/images/icon/ico-refresh-t1.png");
+          &:hover {
+            @if $theme == dark {
+              background-image: url("@/assets/images/icon/ico-refresh-t1-dark-O.png");
+            } @else {
+              background-image: url("@/assets/images/icon/ico-refresh-t1-O.png");
+            }
+          }
+        }
+      }
+      &.m1 {
+        > button {
+          background-image: url("@/assets/images/icon/ico-refresh-m1.png");
+          &:hover {
+            @if $theme == dark {
+              background-image: url("@/assets/images/icon/ico-refresh-m1-dark-O.png");
+            } @else {
+              background-image: url("@/assets/images/icon/ico-refresh-m1-O.png");
+            }
+          }
+        }
+      }
+      &.m5 {
+        > button {
+          background-image: url("@/assets/images/icon/ico-refresh-m5.png");
+          &:hover {
+            @if $theme == dark {
+              background-image: url("@/assets/images/icon/ico-refresh-m5-dark-O.png");
+            } @else {
+              background-image: url("@/assets/images/icon/ico-refresh-m5-O.png");
+            }
+          }
+        }
+      }
+      &.m10 {
+        > button {
+          background-image: url("@/assets/images/icon/ico-refresh-m10.png");
+          &:hover {
+            @if $theme == dark {
+              background-image: url("@/assets/images/icon/ico-refresh-m10-dark-O.png");
+            } @else {
+              background-image: url("@/assets/images/icon/ico-refresh-m10-O.png");
+            }
+          }
+        }
+      }
+    }
+
+/*
+      
+      .k-panelbar-item {
+        position: relative;
+        margin-left: -1px;
+        padding: 0px;
+        width: 50px;
+        height: 48px;
+        border-left-width: 1px;
+        border-right-width: 1px;
+        border-top-width: 0;
+        border-bottom-width: 0;
+        border-style: solid;
+        border-radius: 0;
+        background-color: map-deep-get($config, #{$theme}, "bg-color-basic");
+        border-color: map-deep-get($config, #{$theme}, "bd-color-secondary");
+        .k-link {
+          position: absolute;
+          top: 0;
+          left: 0;
+          padding: 0;
+          width: 100%;
+          height: 100%;
+          background-color: inherit;
+          background-repeat: no-repeat;
+          background-position: 50% 50%;
+          background-size: 33px 34px;
+          cursor: pointer;
+
+          &.k-selected,
+          &.k-focus {
+            border: 0;
+            box-shadow: none;
+            background-color: map-deep-get($config, #{$theme}, "bg-color-basic");
+          }
+          &:hover {
+            background-color: map-deep-get($config, #{$theme}, "bg-color-basic") !important;
+          }
+          .k-panelbar-item-text {
+            display: none;
+          }
+          .k-icon {
+            display: none;
+          }
+        }
+        .k-animation-container {
+          position: absolute;
+          top: 48px;
+          left: -1px;
+          width: 50px;
+          border-radius: 0;
+
+          .k-panelbar-content {
+            padding: 0;
+            @if $theme == dark {
+              background-color: #1b2531;
+            } @else {
+              background-color: #ffffff;
+            }
+            
+            div {
+              padding: 0;
+              border-width: 1px;
+              border-style: solid;
+              border-color: map-deep-get($config, #{$theme}, "bd-color-disabled");
+              background-color: inherit;
+              
+              > div {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                padding: 5px 9px 4px;
+                font-size: 13px;
+                letter-spacing: -0.5px;
+                border-top-width: 1px;
+                border-right-width: 0px;
+                border-bottom-width: 0px;
+                border-left-width: 0px;
+                border-style: solid;
+                background-color: inherit;
+                color: map-deep-get($config, #{$theme}, "ft-color-listbox");
+                border-color: map-deep-get($config, #{$theme}, "bd-color-disabled");
+                cursor: pointer;
+
+                &:first-of-type {
+                  border-top-width: 0px;
+                }
+                &:hover {
+                  @if $theme == dark {
+                    background-color: #2c374d;
+                  } @else {
+                    background-color: #e1e4ec;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+  */
+    .btn-tf-admin {
+      margin-left: -1px;
+      padding: 0px;
+      min-width: 120px !important;
+      width: auto;
+      height: 48px;
+      border-left-width: 1px;
+      border-right-width: 1px;
+      border-top-width: 0;
+      border-bottom-width: 0;
+      border-style: solid;
+      border-radius: 0;
+      background-color: map-deep-get($config, #{$theme}, "bg-color-basic");
+      border-color: map-deep-get($config, #{$theme}, "bd-color-secondary");
+
+      .v-btn__content {
+        display: block;
+        width: 100%;
+        height: 100%;
+
+        .admin-name {
+          display: block;
+          position: relative;
+          padding: 0 13px;
+          width: 100%;
+          height: 100%;
+          text-align: right;
+          font-size: 0;
+
+          span,
+          i {
+            display: inline-block;
+            font-size: 14px;
+            font-weight: bold;
+            line-height: 48px;
+          }
+          span {
+            position: relative;
+            color: map-deep-get($config, #{$theme}, "ft-color-primary");
+
+            &:before {
+              content: "";
+              position: absolute;
+              left: 0;
+              bottom: 14px;
+              width: 100%;
+              height: 1px;
+              background-color: map-deep-get(
+                $config,
+                #{$theme},
+                "color-primary"
+              );
+            }
+          }
+          i {
+            font-style: normal;
+            color: #a4a9b6;
+          }
+        }
+      }
+    }
+    .btn-tf-set {
+      border: 0;
+
+      .k-panelbar-item {
+        position: relative;
+        margin-left: -1px;
+        padding: 0px;
+        width: 50px;
+        height: 48px;
+        border-left-width: 1px;
+        border-right-width: 1px;
+        border-top-width: 0;
+        border-bottom-width: 0;
+        border-style: solid;
+        border-radius: 0;
+        background-color: map-deep-get($config, #{$theme}, "bg-color-basic");
+        border-color: map-deep-get($config, #{$theme}, "bd-color-secondary");
+        &.k-expanded {
+          .k-link {
+            @if $theme == dark {
+              background-image: url("@/assets/images/icon/ico-set-dark-O.png");
+            } @else {
+              background-image: url("@/assets/images/icon/ico-set-O.png");
+            }
+          }
+        }
+        .k-link {
+          position: absolute;
+          top: 0;
+          left: 0;
+          padding: 0;
+          width: 100%;
+          height: 100%;
+          background-color: inherit;
+          background-image: url("@/assets/images/icon/ico-set.png");
+          background-repeat: no-repeat;
+          background-position: 50% 50%;
+          background-size: 21px 22px;
+          cursor: pointer;
+
+          &.k-selected,
+          &.k-focus {
+            border: 0;
+            box-shadow: none;
+            background-color: map-deep-get(
+              $config,
+              #{$theme},
+              "bg-color-basic"
+            );
+          }
+          &:hover {
+            @if $theme == dark {
+              background-image: url("@/assets/images/icon/ico-set-dark-O.png");
+            } @else {
+              background-image: url("@/assets/images/icon/ico-set-O.png");
+            }
+    
+            background-color: map-deep-get(
+              $config,
+              #{$theme},
+              "bg-color-basic"
+            );
+          }
+          .k-panelbar-item-text {
+            display: none;
+          }
+          .k-icon {
+            display: none;
+          }
+        }
+        .k-animation-container {
+          position: absolute;
+          top: 48px;
+          left: -1px;
+          width: 150px;
+          border-radius: 0;
+
+          .k-panelbar-content {
+            padding: 0;
+            @if $theme == dark {
+              background-color: #1b2531;
+            } @else {
+              background-color: #ffffff;
+            }
+
+            div {
+              padding: 0;
+              border-width: 1px;
+              border-style: solid;
+              border-color: map-deep-get($config, #{$theme}, "bd-color-basic");
+
+              > div {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 2px 9px;
+                font-size: 13px;
+                letter-spacing: -0.5px;
+                border-top-width: 1px;
+                border-right-width: 0px;
+                border-bottom-width: 0px;
+                border-left-width: 0px;
+                border-style: solid;
+                color: map-deep-get($config, #{$theme}, "ft-color-listbox");
+                border-color: map-deep-get(
+                  $config,
+                  #{$theme},
+                  "bd-color-basic"
+                );
+
+                &:first-of-type {
+                  border-top-width: 0px;
+                }
+                &:last-of-type {
+                  padding-left: 0;
+                  padding-right: 0;
+                }
+                .k-switch-sm {
+                  margin-left: 21px;
+                }
+                .k-picker-solid {
+                  width: 100% !important;
+                  font-weight: normal;
+                  border: 0;
+                  box-shadow: none;
+
+                  &.k-picker-md {
+                    min-height: auto;
+                    height: 29px;                    
+                    @if $theme == dark {
+                      background-color: #1b2531;
+                    } @else {
+                      background-color: #ffffff;
+                    }
+            
+                    .k-input-button {
+                      padding-right: 14px;
+                    }
+                    .k-input-inner {
+                      padding: 0 10px;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      /* Switch Style */
+      .k-switch {
+        &.k-switch-sm {
+          font-size: 0;
+
+          .k-switch-track {
+            height: 23px;
+          }
+          .k-switch-thumb {
+            width: 19px;
+            height: 19px;
+          }
+        }
+        &.k-switch-off {
+          .k-switch-thumb-wrap {
+            left: 11px;
+          }
+        }
+        &.k-switch-on {
+          .k-switch-thumb-wrap {
+            left: calc(100% - 11px);
+          }
+        }
+      }
+    }
+    .router-tab {
+      .router-tab__header {
+        z-index: auto;
+        border-width: 1px;
+        border-style: solid;
+        background-color: map-deep-get($config, #{$theme}, "bg-color-basic");
+        border-color: map-deep-get($config, #{$theme}, "bd-color-secondary");
+      }
+
+      .router-tab__container {
+        background: transparent;
+
+        .k-card {
+          color: map-deep-get($config, #{$theme}, "ft-color-primary");
+          background-color: map-deep-get($config, #{$theme}, "bg-color-basic");
+          border-color: map-deep-get($config, #{$theme}, "bd-color-basic");
+        }
+      }
+      .router-tab__item {
+        background-color: map-deep-get($config, #{$theme}, "bg-color-basic");
+        border-color: map-deep-get(
+          $config,
+          #{$theme},
+          "bd-color-secondary"
+        );
+        color: map-deep-get($config, #{$theme}, "router-tab-item-color");
+
+        &:not(.is-active) {
+          &:hover {
+            & > span {
+              color: map-deep-get(
+                $config,
+                #{$theme},
+                "router-tab-item-hover-color"
+              );
+            }
+          }
+          .v-icon {
+            @if $theme == dark {
+              background-image: url("@/assets/images/icon/ico-router-tab-close-O.png");
+            } @else {
+              background-image: url("@/assets/images/icon/ico-router-tab-close.png");
+            }
+    
+            &:hover {
+              @if $theme == dark {
+                background-image: url("@/assets/images/icon/ico-router-tab-close-dark-O.png");
+              } @else {
+                background-image: url("@/assets/images/icon/ico-router-tab-close-O.png");
+              }
+            }
+          }
+        }
+
+        &:first-of-type {
+          min-width: 50px;
+          background-image: url("@/assets/images/icon/ico-home.png");
+          background-size: 24px 24px;
+          background-position: 50% 50%;
+    
+          &:hover {
+            @if $theme == dark {
+              background-image: url("@/assets/images/icon/ico-home-dark-O.png");
+            } @else {
+              background-image: url("@/assets/images/icon/ico-home-O.png");
+            }
+    
+          }
+          > span {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            border: 0;
+            clip: rect(1px, 1px, 1px, 1px);
+            overflow: hidden;
+            z-index: -1;
+          }
+        }
+
+        .v-icon {
+          color: map-deep-get($config, #{$theme}, "router-tab-item-icon-color");
+        }
+
+        &.is-active {
+          background-color: map-deep-get(
+            $config,
+            #{$theme},
+            "router-tab-item-active"
+          );
+          border-color: map-deep-get(
+            $config,
+            #{$theme},
+            "router-tab-item-border"
+          );
+          color: map-deep-get(
+            $config,
+            #{$theme},
+            "router-tab-item-active-color"
+          );
+
+          .v-icon {
+            color: map-deep-get(
+              $config,
+              #{$theme},
+              "router-tab-item-icon-active-color"
+            );
+
+            @if $theme == dark {
+              background-image: url("@/assets/images/icon/ico-router-tab-close-dark-O.png");
+            } @else {
+              background-image: url("@/assets/images/icon/ico-router-tab-close-O.png");
+            }
+          }
+        }
+      }
+
+      .v-btn {
+        background-color: map-deep-get(
+          $config,
+          #{$theme},
+          "router-tab-slot-end-button-backgroundColor"
+        );
+        box-shadow: none;
+      }
+    }
+
+    .v-navigation-drawer__append {
+      > p {
+        @if $theme == dark {
+          color: rgba(255, 255, 255, 0.6);
+        } @else {
+          color: #999;
+        }
+      }
+    }
+
+    .v-footer {
+      @if $theme == light {
+        background-color: #dfdfe5;
+        color: #767d83;
+      }
+    }
+    .bd {
+      @if $theme == dark {
+        &-r-1 {
+          border-right: 1px #373f45 solid;
+        }
+      } @else {
+        &-r-1 {
+          border-right: 1px #efefef solid;
+        }
+      }
+    }
+
+    .border-bottom-1 {
+      border-bottom: 1px solid map-deep-get($config, #{$theme}, "border-color");
+    }
+
+    .v-treeview {
+      .v-treeview-node + .v-treeview-node {
+        margin-top: 2px;
+      }
+
+      .v-treeview-node__root + .v-treeview-node__children {
+        margin-top: 2px;
+      }
+
+      & > .v-treeview-node {
+        & > .v-treeview-node__root {
+          &:before {
+            background-color: map-deep-get(
+              $config,
+              #{$theme},
+              "v-treeview-node-root-backgroundColor"
+            );
+          }
+
+          & > .v-treeview-node__content {
+            .v-treeview-node__label {
+              color: map-deep-get(
+                $config,
+                #{$theme},
+                "v-treeview-node-root-label-color"
+              );
+            }
+            .v-icon {
+              color: map-deep-get(
+                $config,
+                #{$theme},
+                "v-treeview-node-root-icon-color"
+              );
+            }
+          }
+
+          &:hover {
+            & > .v-treeview-node__content {
+              .v-treeview-node__label {
+                color: map-deep-get(
+                  $config,
+                  #{$theme},
+                  "v-treeview-node-root-label-active-color"
+                );
+              }
+              .v-icon {
+                color: map-deep-get(
+                  $config,
+                  #{$theme},
+                  "v-treeview-node-root-icon-active-color"
+                );
+              }
+            }
+          }
+        }
+
+        & > .v-treeview-node__children {
+          & > .v-treeview-node {
+            & > .v-treeview-node__root {
+              &:before {
+                background-color: map-deep-get(
+                  $config,
+                  #{$theme},
+                  "v-treeview-node-subroot-backgroundColor"
+                );
+              }
+
+              & > .v-treeview-node__content {
+                .v-treeview-node__label {
+                  color: map-deep-get(
+                    $config,
+                    #{$theme},
+                    "v-treeview-node-label-color"
+                  );
+                }
+                .v-icon {
+                  color: map-deep-get(
+                    $config,
+                    #{$theme},
+                    "v-treeview-icon-color"
+                  );
+                }
+              }
+
+              &:not(.v-treeview-node--active):hover {
+                &:before {
+                  background-color: map-deep-get(
+                    $config,
+                    #{$theme},
+                    "v-treeview-leaf-active-backgroundColor"
+                  );
+                }
+
+                & > .v-treeview-node__content {
+                  .v-treeview-node__label {
+                    color: map-deep-get(
+                      $config,
+                      #{$theme},
+                      "v-treeview-leaf-active-color"
+                    );
+                  }
+                  .v-icon {
+                    color: map-deep-get(
+                      $config,
+                      #{$theme},
+                      "v-treeview-leaf-active-color"
+                    );
+                  }
+                }
+              }
+            }
+
+            & > .v-treeview-node--active {
+              &:before {
+                background-color: map-deep-get(
+                  $config,
+                  #{$theme},
+                  "v-treeview-node-subroot-backgroundColor"
+                );
+              }
+
+              & > .v-treeview-node__content {
+                .v-treeview-node__label {
+                  color: map-deep-get(
+                    $config,
+                    #{$theme},
+                    "v-treeview-node-label-active-color"
+                  );
+                }
+                .v-icon {
+                  color: map-deep-get(
+                    $config,
+                    #{$theme},
+                    "v-treeview-icon-active-color"
+                  );
+                }
+              }
+            }
+
+            & > .v-treeview-node__children {
+              & .v-treeview-node {
+                & > .v-treeview-node__root {
+                  &:before {
+                    background-color: map-deep-get(
+                      $config,
+                      #{$theme},
+                      "v-treeview-node-subroot-backgroundColor"
+                    );
+                  }
+
+                  & > .v-treeview-node__content {
+                    .v-treeview-node__label {
+                      color: map-deep-get(
+                        $config,
+                        #{$theme},
+                        "v-treeview-node-label-color"
+                      );
+                    }
+                    .v-icon {
+                      color: map-deep-get(
+                        $config,
+                        #{$theme},
+                        "v-treeview-icon-color"
+                      );
+                    }
+                  }
+
+                  &:not(.v-treeview-node--active):hover {
+                    &:before {
+                      background-color: map-deep-get(
+                        $config,
+                        #{$theme},
+                        "v-treeview-leaf-active-backgroundColor"
+                      );
+                    }
+
+                    & > .v-treeview-node__content {
+                      .v-treeview-node__label {
+                        color: map-deep-get(
+                          $config,
+                          #{$theme},
+                          "v-treeview-leaf-active-color"
+                        );
+                      }
+                      .v-icon {
+                        color: map-deep-get(
+                          $config,
+                          #{$theme},
+                          "v-treeview-leaf-active-color"
+                        );
+                      }
+                    }
+                  }
+                }
+
+                & > .v-treeview-node--active {
+                  &:before {
+                    opacity: 0 !important;
+                  }
+
+                  & > .v-treeview-node__content {
+                    .v-treeview-node__label {
+                      color: map-deep-get(
+                        $config,
+                        #{$theme},
+                        "v-treeview-node-label-active-color"
+                      );
+                    }
+                    .v-icon {
+                      color: map-deep-get(
+                        $config,
+                        #{$theme},
+                        "v-treeview-node-label-active-color"
+                      );
+                    }
+                  }
+                }
+              }
+            }
+
+            &[aria-expanded="true"] {
+              & .v-treeview-node__root > .v-treeview-node__content {
+                .v-treeview-node__label {
+                  color: map-deep-get(
+                    $config,
+                    #{$theme},
+                    "v-treeview-node-label-active-color"
+                  );
+                }
+                .v-icon {
+                  color: map-deep-get(
+                    $config,
+                    #{$theme},
+                    "v-treeview-icon-active-color"
+                  );
+                }
+              }
+            }
+          }
+        }
+
+        &[aria-expanded="true"] {
+          & .v-treeview-node__root > .v-treeview-node__content {
+            .v-treeview-node__label {
+              color: map-deep-get(
+                $config,
+                #{$theme},
+                "v-treeview-node-root-label-active-color"
+              );
+            }
+            .v-icon {
+              color: map-deep-get(
+                $config,
+                #{$theme},
+                "v-treeview-node-root-icon-active-color"
+              );
+            }
+          }
+        }
+      }
+    }
+
+    /* form-group */
+    .form-group-wrap {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: -10px;
+
+      + .form-group-wrap {
+        margin-top: 0;
+      }
+
+      .form-group {
+        display: inline-flex;
+        align-items: center;
+        margin-top: 10px;
+        font-size: 0;
+
+        label {
+          padding-right: 10px;
+          min-width: 105px;
+          font-size: 14px;
+          font-weight: bold;
+          color: map-deep-get($config, #{$theme}, "ft-color-primary");
+          text-align: right;
+          vertical-align: middle;
+        }
+        .search-box {
+          width: 166px;
+
+          .col {
+            display: inline-block;
+          }
+          + .btn-form,
+          + .k-button {
+            margin-left: 5px;
+          }
+        }
+
+        /* form custom */
+        &.form-calendar-month {
+          display: inline-flex;
+          .dp-calendar {
+            display: inline-flex;
+            align-items: center;
+            margin: 0 5px;
+            padding: 0 13px;
+            height: 34px;
+            text-align: center;
+            border-width: 1px;
+            border-style: solid;
+            border-color: map-deep-get($config, #{$theme}, "bd-color-basic");
+            border-radius: 5px;
+            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+
+            span {
+              font-size: 14px;
+              font-weight: bold;
+              color: map-deep-get($config, #{$theme}, "ft-color-primary");
+            }
+          }
+        }
+        &.form-calendar-info {
+          min-width: 271px;
+
+          .calendar-info {
+            display: inline-block;
+            margin-left: 105px;
+            padding: 0 15px;
+            height: 34px;
+            line-height: 34px;
+            font-size: 14px;
+            font-weight: bold;
+            text-align: center;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+            color: map-deep-get($config, #{$theme}, "ft-color-basic");
+            background-color: map-deep-get($config, #{$theme}, "color-primary");
+          }
+        }
+      }
+      &.form-group-style2 {
+        margin-top: 10px;
+        padding-bottom: 5px;
+        border-width: 1px;
+        border-style: solid;
+        background-color: map-deep-get($config, #{$theme}, "bg-color-grid-hd");
+        border-color: map-deep-get($config, #{$theme}, "bd-color-basic");
+
+        .form-group {
+          margin-top: 5px;
+
+          label {
+            min-width: 116px;
+          }
+        }
+      }
+    }
+
+    /* Datepicker */
+    .form-datepicker {
+      width: 130px;
+
+      .k-datepicker {
+        .k-button-md {
+          height: 32px;
+  
+          .k-icon {
+            &.k-i-calendar {
+              width: 14px;
+              height: 14px;
+              background-image: url("@/assets/images/icon/ico-calendar.png");
+              &:before {
+                display: none;
+              }
+            }
+          }
+        }
+        .k-button-solid-base {
+          color: map-deep-get($config, #{$theme}, "ft-color-basic");
+          background-color: map-deep-get($config, #{$theme}, "color-primary");
+          border-color: map-deep-get($config, #{$theme}, "color-primary");
+          background-image: none;
+          &:hover {
+            background-color: map-deep-get(
+              $config,
+              #{$theme},
+              "color-primary-hover"
+            );
+            border-color: map-deep-get($config, #{$theme}, "color-primary");
+          }
+          &.k-focus,
+          &:focus {
+            box-shadow: none;
+          }
+        }
+
+        &.k-disabled {
+          .k-button-solid-base {
+            background-color: map-deep-get($config, #{$theme}, "bg-color-disabled");
+            border-color: map-deep-get($config, #{$theme}, "bd-color-basic");
+            &:hover {
+              background-color: map-deep-get(
+                $config,
+                #{$theme},
+                "bg-color-disabled"
+              );
+              border-color: map-deep-get($config, #{$theme}, "bd-color-basic");
+            }
+          }
+          .k-icon {
+            &.k-i-calendar {
+              background-image: url("@/assets/images/icon/ico-calendar-D.png");
+            }
+          }
+        }
+      }
+    }
+    .i_tilde {
+      display: inline-block;
+      width: 16px;
+      font-size: 14px;
+      font-weight: bold;
+      text-align: center;
+      color: map-deep-get($config, #{$theme}, "ft-color-primary");
+    }
+    /* Calendar Full Size */
+    .k-calendar-range {
+      font-size: 14px;
+      font-weight: bold;
+      border: 0;
+
+      .k-calendar-view {
+        margin: 0 !important;
+        padding: 0;
+        width: 100%;
+
+        .k-calendar-table {
+          width: 100%;
+          border-collapse: collapse;
+
+          .k-calendar-caption {
+            text-align: center;
+            border-width: 1px;
+            border-style: solid;
+            color: map-deep-get($config, #{$theme}, "ft-color-primary");
+            background-color: map-deep-get(
+              $config,
+              #{$theme},
+              "bg-color-grid-selected"
+            );
+            border-color: map-deep-get($config, #{$theme}, "bd-color-basic");
+
+            &:first-of-type {
+              color: #e51737;
+            }
+            &:last-of-type {
+              color: #0569a0;
+            }
+          }
+          .k-calendar-td,
+          td {
+            border-width: 1px;
+            border-style: solid;
+            color: map-deep-get($config, #{$theme}, "ft-color-primary");
+            border-color: map-deep-get($config, #{$theme}, "bd-color-basic");
+
+            .k-link {
+              padding: 10px 15px;
+              border-radius: 0;
+              &.k-hover,
+              &:hover {
+                background-color: map-deep-get(
+                  $config,
+                  #{$theme},
+                  "bg-color-grid-hover"
+                );
+              }
+            }
+          }
+        }
+      }
+    }
+
+    /* Grid Style */
+    .k-grid {
+      border-color: map-deep-get($config, #{$theme}, "bd-color-basic");
+
+      .k-table {
+        box-sizing: border-box;
+        border-collapse: collapse;
+      }
+      .k-grid-add-row,
+      .k-grid-footer,
+      .k-grid-header,
+      .k-grouping-header {
+        font-weight: bold;
+        text-align: center;
+        border-top-width: 0px;
+        border-right-width: 0px;
+        border-bottom-width: 0px;
+        border-left-width: 0px;
+        color: map-deep-get($config, #{$theme}, "ft-color-primary");
+        background-color: map-deep-get($config, #{$theme}, "bg-color-grid-hd");
+
+        .k-header,
+        .k-table-th {
+          padding: 4px 9px 5px;
+          height: 35px;
+          border-width: 0px 1px 1px 0px;
+          vertical-align: middle;
+          box-sizing: border-box;
+          border-color: map-deep-get($config, #{$theme}, "bd-color-basic");
+        }
+
+        .k-link {
+          justify-content: center !important;
+        }
+      }
+
+      .k-grid-header {
+        padding-right: 5px !important;
+      }
+
+      .k-grid-container {
+        .k-grid-content {
+          background-color: map-deep-get($config, #{$theme}, "bg-color-basic");
+        }
+      }
+      tbody {
+        > tr {
+          background-color: map-deep-get(
+              $config,
+              #{$theme},
+              "bg-color-grid-odd"
+            );
+          &.k-table-row {
+            &.k-selected {
+              > td {
+                background-color: map-deep-get(
+                  $config,
+                  #{$theme},
+                  "bg-color-grid-selected"
+                );
+              }
+            }
+          }
+
+          &:not(.k-detail-row).k-hover,
+          &:not(.k-detail-row):hover {
+            background-color: map-deep-get(
+              $config,
+              #{$theme},
+              "bg-color-grid-hover"
+            ) !important;
+          }
+          &.k-alt {
+            background-color: map-deep-get(
+              $config,
+              #{$theme},
+              "bg-color-grid-even"
+            );
+          }
+          &.k-selected {
+            > td {
+              background-color: map-deep-get(
+                $config,
+                #{$theme},
+                "bg-color-grid-selected"
+              );
+            }
+          }
+          td {
+            padding: 4px 9px;
+            height: 35px;
+            font-weight: bold;
+            color: map-deep-get($config, #{$theme}, "ft-color-primary");
+            border-color: map-deep-get($config, #{$theme}, "bd-color-basic");
+            border-width: 1px 1px 1px 0px !important;
+            white-space: nowrap;
+            box-sizing: border-box;
+            
+            .k-input-md,
+            .k-picker-md {
+              min-height: auto;
+              height: 28px;
+            }
+
+            .k-table-td {
+              &.k-selected {
+                background-color: map-deep-get(
+                  $config,
+                  #{$theme},
+                  "bg-color-grid-selected"
+                );
+              }
+              .k-input {
+                &:focus {
+                  text-align: left !important;
+                }
+              }
+            }
+
+            &.k-selected {
+              background-color: map-deep-get(
+                $config,
+                #{$theme},
+                "bg-color-grid-selected"
+              );
+            }
+            &.k-selected {
+              > td {
+                background-color: map-deep-get(
+                  $config,
+                  #{$theme},
+                  "bg-color-grid-selected"
+                );
+              }
+            }
+          }
+        }
+      }
+    }
+
+    /* Paging */
+    .k-grid-pager {
+      background-color: map-deep-get($config, #{$theme}, "bg-color-paging");
+
+      .k-pager-numbers-wrap {
+        align-items: center;
+
+        .k-button-md {
+          padding: 0;
+          height: 22px;
+          line-height: 22px;
+          font-size: 14px;
+        }
+        .k-button {
+          min-width: 22px !important;
+          border: 0;
+          &:before,
+          &:after {
+            display: none !important;
+          }
+        }
+        .k-pager-numbers {
+          .k-selected {
+            &.k-button-flat-primary {
+              color: map-deep-get($config, #{$theme}, "ft-color-basic");
+              background-color: map-deep-get(
+                $config,
+                #{$theme},
+                "color-primary"
+              ) !important;
+            }
+          }
+          .k-button-md {
+            padding: 0 8px;
+          }
+          .k-button-flat-primary {
+            justify-content: center !important;
+            color: #a4a9b6;
+          }
+        }
+        .k-pager-nav {
+          color: map-deep-get($config, #{$theme}, "color-primary");
+
+          &.k-button:disabled,
+          &.k-button.k-disabled {
+            color: map-deep-get($config, #{$theme}, "ft-color-secondary");
+          }
+        }
+      }
+      .k-label {
+        color: #abafbc;
+      }
+      .k-pager-sizes {
+        .k-dropdown-list,
+        .k-dropdown,
+        .k-dropdownlist,
+        > select {
+          margin-right: 19px;
+          width: 81px !important;
+        }
+      }
+    }
+
+    /* Grid Tree style */
+    .grid-tree {
+      .k-treeview-item {
+        padding: 0 0 0 13px;
+        .k-treeview-toggle {
+          margin-left: -13px;
+
+          .k-icon {
+            width: 13px;
+            height: 13px;
+            background-repeat: no-repeat;
+            background-size: 100% auto;
+            background-position: 50% 50%;
+
+            &:before {
+              display: none;
+            }
+            &.k-i-caret-alt-right {
+              @if $theme == dark {
+                background-image: url("@/assets/images/icon/ico-tree-expand-dark.png");
+              } @else {
+                background-image: url("@/assets/images/icon/ico-tree-expand.png");
+              }
+            }
+            &.k-i-caret-alt-down {
+              @if $theme == dark {
+                background-image: url("@/assets/images/icon/ico-tree-collapse-dark.png");
+              } @else {
+                background-image: url("@/assets/images/icon/ico-tree-collapse.png");
+              }
+            }
+          }
+        }
+        .k-treeview-leaf {
+          padding: 5px 3px 6px;
+          &.k-hover,
+          &:hover {
+            background-color: inherit;
+            color: inherit;
+
+            .k-treeview-leaf-text {
+              background-color: map-deep-get(
+                $config,
+                #{$theme},
+                "color-primary"
+              );
+              .level-0 {
+                .treeLeefText {
+                  color: map-deep-get($config, #{$theme}, "ft-color-basic");
+                }
+              }
+              .treeLeefText {
+                color: map-deep-get($config, #{$theme}, "ft-color-basic");
+              }
+            }
+          }
+          &.k-focus,
+          &:focus {
+            box-shadow: none;
+
+            .k-treeview-leaf-text {
+              background-color: map-deep-get(
+                $config,
+                #{$theme},
+                "color-primary"
+              );
+              .level-0 {
+                .treeLeefText {
+                  color: map-deep-get($config, #{$theme}, "ft-color-basic");
+                }
+              }
+              .treeLeefText {
+                color: map-deep-get($config, #{$theme}, "ft-color-basic");
+              }
+            }
+          }
+          .k-treeview-leaf-text {
+            padding: 0 3px;
+            line-height: 1;
+
+            > span {
+              display: inline-flex;
+              align-items: center;
+
+              &.level-0 {
+                .treeLeefText {
+                  font-size: 16px;
+                  font-weight: bold;
+                  color: map-deep-get($config, #{$theme}, "ft-color-primary");
+                }
+              }
+            }
+            .treeLeefText {
+              min-height: 15px;
+              font-size: 13px;
+              color: map-deep-get($config, #{$theme}, "ft-color-primary");
+              line-height: 1;
+
+              &.on {
+                font-weight: bold;
+              }
+            }
+            .tree-icon {
+              display: inline-block;
+              margin-right: 3px;
+              padding: 0;
+              width: 36px;
+              height: 15px;
+              background-repeat: no-repeat;
+              background-size: auto 100%;
+              background-position: 50% 50%;
+
+              &.ic-mes-halfprod {
+                background-image: url("@/assets/images/icon/ic-mes-halfprod.png");
+              }
+              &.ic-mes-matr {
+                background-image: url("@/assets/images/icon/ic-mes-matr.png");
+              }
+              &.ic-mes-product {
+                background-image: url("@/assets/images/icon/ic-mes-product.png");
+              }
+              &.ic-mes-route {
+                background-image: url("@/assets/images/icon/ic-mes-route.png");
+              }
+              &.ic-mes-process {
+                background-image: url("@/assets/images/icon/ic-mes-process-select.png");
+              }
+              &.ic-mes-proccond {
+                background-image: url("@/assets/images/icon/ic-mes-proccond.png");
+              }
+              &.ic-mes-step {
+                background-image: url("@/assets/images/icon/ic-mes-step.png");
+              }
+              &.ic-mes-inmatr {
+                background-image: url("@/assets/images/icon/ic-mes-inmatr.png");
+              }
+            }
+          }
+        }
+      }
+
+      &.grid-tree-lines {
+        padding: 20px;
+        border-width: 1px;
+        border-style: solid;
+        border-color: map-deep-get($config, #{$theme}, "bd-color-basic");
+      }
+    }
+
+    /* Tab Style */
+    .k-tabstrip {
+      font-size: 13px;
+      font-weight: bold;
+      height: 100%;
+
+      .k-tabstrip-items-wrapper {
+        z-index: auto;
+
+        .k-item {
+          color: map-deep-get($config, #{$theme}, "ft-color-basic");
+          background-color: map-deep-get(
+            $config,
+            #{$theme},
+            "bg-color-secondary"
+          );
+          border-color: map-deep-get($config, #{$theme}, "bd-color-basic");
+          border-top-left-radius: 8px;
+          border-top-right-radius: 8px;
+
+          &.k-selected,
+          &.k-active {
+            color: map-deep-get($config, #{$theme}, "ft-color-basic");
+            background-color: map-deep-get($config, #{$theme}, "color-primary");
+            border-color: map-deep-get($config, #{$theme}, "bd-color-basic");
+          }
+
+          .k-link {
+            padding: 7px 24px 6px;
+          }
+        }
+      }
+      .k-content {
+        padding: 10px 0px 0px;
+        height: 100%;
+        background-color: inherit;
+
+        .k-animation-container {
+          &.k-fade-enter-active {
+            height: calc(100% - 5px);
+
+            .k-child-animation-container {
+              height: 100%;
+
+              > div {
+                height: 100%;
+              }
+            }
+          }
+        }
+      }
+    }
+      
+    /* Input, Dropdown Style */
+    .k-input-md,
+    .k-picker-md {
+      min-height: 34px;
+      font-size: 14px;
+      font-weight: bold;
+
+      .k-button-md {
+        height: auto;
+      }
+    }
+    .k-input-solid,
+    .k-picker-solid {
+      color: map-deep-get($config, #{$theme}, "ft-color-primary");
+      background-color: map-deep-get($config, #{$theme}, "bg-color-input");
+      background-image: none;
+      border-color: map-deep-get($config, #{$theme}, "bd-color-basic");
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+
+      &:focus-within {
+        border-color: map-deep-get($config, #{$theme}, "color-primary");
+      }
+      &.k-hover,
+      &:hover {
+        background-color: map-deep-get($config, #{$theme}, "bg-color-input");
+        border-color: map-deep-get($config, #{$theme}, "color-primary");
+      }
+      &.k-readonly {
+        color: map-deep-get($config, #{$theme}, "ft-color-primary");
+        background-color: map-deep-get($config, #{$theme}, "bg-color-input-readonly");
+        border-color: map-deep-get($config, #{$theme}, "bd-color-basic");
+
+        &:focus-within {
+          border-color: map-deep-get($config, #{$theme}, "bd-color-basic");
+        }
+        &.k-hover,
+        &:hover {
+          color: map-deep-get($config, #{$theme}, "ft-color-primary");
+          background-color: map-deep-get($config, #{$theme}, "bg-color-input-readonly");
+          border-color: map-deep-get($config, #{$theme}, "bd-color-basic");
+        }
+      }
+      &.k-disabled {
+        color: map-deep-get($config, #{$theme}, "ft-color-disabled");
+        background-color: map-deep-get($config, #{$theme}, "bg-color-disabled");
+
+        &.k-hover,
+        &:hover {
+          background-color: map-deep-get($config, #{$theme}, "bg-color-disabled");
+          border-color: map-deep-get($config, #{$theme}, "bd-color-basic");
+        }
+      }
+    }
+    
+    /* Checkbox Style */
+    .k-checkbox {
+      width: 18px;
+      height: 18px;
+      background-color: #ffffff;
+      border-color: map-deep-get($config, #{$theme}, "bd-color-chkbox");
+
+      &.k-checked,
+      &:checked {
+        background-color: map-deep-get($config, #{$theme}, "color-primary");
+        border-color: map-deep-get($config, #{$theme}, "color-primary");
+      }
+      &:disabled,
+      &.k-disabled {
+        opacity: 1;
+        background-color: map-deep-get($config, #{$theme}, "bg-color-disabled");
+        border-color: map-deep-get($config, #{$theme}, "bd-color-disabled");
+
+        &:checked {
+          background-color: map-deep-get($config, #{$theme}, "bg-color-disabled2");
+          border-color: map-deep-get($config, #{$theme}, "bg-color-disabled2");
+        }
+      }
+    }
+    .k-radio {
+      width: 18px;
+      height: 18px;
+      background-color: #ffffff;
+      border-color: map-deep-get($config, #{$theme}, "bd-color-chkbox");
+
+      &.k-checked,
+      &:checked {
+        background-color: map-deep-get($config, #{$theme}, "color-primary");
+        border-color: map-deep-get($config, #{$theme}, "color-primary");
+      }
+      &:disabled,
+      &.k-disabled {
+        opacity: 1;
+        background-color: map-deep-get($config, #{$theme}, "bg-color-disabled");
+        border-color: map-deep-get($config, #{$theme}, "bd-color-disabled");
+      }
+    }
+    /* Checkbox Form Style */
+    .form-chk {
+      display: inline-flex;
+      align-items: center;
+
+      + .form-datepicker {
+        margin-left: 5px;
+      }
+
+      span {
+        .k-checkbox {
+        }
+      }
+      label {
+        margin-left: 5px;
+        padding-right: 10px;
+        min-width: auto;
+        font-size: 14px;
+        font-weight: bold;
+        line-height: 18px;
+        color: map-deep-get($config, #{$theme}, "ft-color-primary");
+      }
+    }
+    
+    /* Switch Style */
+    .k-switch {
+      &.k-switch-sm {
+        width: 57px;
+        font-size: 12px;
+        font-weight: bold;
+
+        .k-switch-track {
+          height: 23px;
+        }
+        .k-switch-thumb {
+          width: 23px;
+          height: 23px;
+        }
+      }
+      &.k-switch-off {
+        .k-switch-thumb {
+          background-color: #ffffff;
+        }
+      }
+      &.k-switch-on {
+        .k-switch-track {
+          background-color: map-deep-get($config, #{$theme}, "color-primary");
+        }
+        .k-switch-thumb {
+          background-color: #ffffff;
+        }
+      }
+      .k-switch-track {
+        border: 0;
+        color: #ffffff;
+        background-color: #d4d4d4;
+      }
+    }
+    
+    /* Button Style */
+    // Color
+    .k-button-solid-primary {
+      color: #ffffff;
+      background-color: map-deep-get($config, #{$theme}, "color-primary");
+      border-color: map-deep-get($config, #{$theme}, "color-primary");
+      background-image: none;
+      &:hover {
+        background-color: map-deep-get(
+          $config,
+          #{$theme},
+          "color-primary-hover"
+        );
+        border-color: map-deep-get($config, #{$theme}, "color-primary");
+      }
+      &.k-focus,
+      &:focus {
+        box-shadow: none;
+      }
+    }
+    .k-button-solid-secondary {
+      color: #ffffff;
+      background-color: map-deep-get($config, #{$theme}, "bg-color-secondary");
+      border-color: map-deep-get($config, #{$theme}, "bg-color-secondary");
+
+      &:hover {
+        background-color: map-deep-get(
+          $config,
+          #{$theme},
+          "bg-color-secondary-hover"
+        );
+        
+        @if $theme == dark {
+          border-color: map-deep-get($config, #{$theme}, "bg-color-secondary-hover");
+        } @else {
+          border-color: map-deep-get($config, #{$theme}, "bg-color-secondary");
+        }
+      }
+      &.k-focus,
+      &:focus {
+        box-shadow: none;
+      }
+    }
+    /* Grid Button Style */
+    .k-button-solid-new {
+      padding: 0 !important;
+      width: 46px !important;
+      height: 24px !important;
+      background-repeat: no-repeat;
+      background-size: auto 100%;
+      background-position: 50% 50%;
+      background-color: #0893ad;
+      background-image: url("@/assets/images/icon/ico-grid-new.png");
+      border: 0;
+    }
+    .k-button-solid-modify {
+      padding: 0 !important;
+      width: 46px !important;
+      height: 24px !important;
+      background-repeat: no-repeat;
+      background-size: auto 100%;
+      background-position: 50% 50%;
+      background-color: #6fa220;
+      background-image: url("@/assets/images/icon/ico-grid-modify.png");
+      border: 0;
+    }
+    .k-button-solid-delete {
+      padding: 0 !important;
+      width: 46px !important;
+      height: 24px !important;
+      background-repeat: no-repeat;
+      background-size: auto 100%;
+      background-position: 50% 50%;
+      background-color: #e53934;
+      background-image: url("@/assets/images/icon/ico-grid-delete.png");
+      border: 0;
+    }
+
+    //Comon
+    .k-button {
+      margin-right: 0;
+
+      &:disabled,
+      &.k-disabled {
+        @if $theme == dark {
+          color: #5f6575;
+          background-color: #1b2531;
+          border-color: #313e51;
+        } @else {
+          color: #d4d4d4;
+          background-color: #f5f5f5;
+          border-color: #d7dae4;
+        }
+
+        .k-i-search {
+          @if $theme == dark {
+            background-image: url("@/assets/images/icon/ico-srh-dark-D.png");
+          } @else {
+            background-image: url("@/assets/images/icon/ico-srh-D.png");
+          }
+        }
+        .k-i-excel {
+          @if $theme == dark {
+            background-image: url("@/assets/images/icon/ico-excel-dark-D.png");
+          } @else {
+            background-image: url("@/assets/images/icon/ico-excel-D.png");
+          }
+        }
+        .k-i-save {
+          @if $theme == dark {
+            background-image: url("@/assets/images/icon/ico-save-dark-D.png");
+          } @else {
+            background-image: url("@/assets/images/icon/ico-save-D.png");
+          }
+        }
+        .k-i-add {
+          @if $theme == dark {
+            background-image: url("@/assets/images/icon/ico-add-dark-D.png");
+          } @else {
+            background-image: url("@/assets/images/icon/ico-add-D.png");
+          }
+        }
+        .k-i-delete {
+          @if $theme == dark {
+            background-image: url("@/assets/images/icon/ico-delete-dark-D.png");
+          } @else {
+            background-image: url("@/assets/images/icon/ico-delete-D.png");
+          }
+        }
+        .k-i-undo {
+          @if $theme == dark {
+            background-image: url("@/assets/images/icon/ico-undo-dark-D.png");
+          } @else {
+            background-image: url("@/assets/images/icon/ico-undo-D.png");
+          }
+        }
+      }
+
+      .k-icon {
+        background-size: 100% auto;
+        background-position: 50% 50%;
+      }
+
+      //Icon
+      .k-i-search {
+        background-image: url("@/assets/images/icon/ico-srh.png");
+        &:before {
+          content: "";
+        }
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16);
+      }
+      .k-i-excel {
+        background-image: url("@/assets/images/icon/ico-excel.png");
+        &:before {
+          content: "";
+        }
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16);
+      }
+      .k-i-save {
+        background-image: url("@/assets/images/icon/ico-save.png");
+        &:before {
+          content: "";
+        }
+      }
+      .k-i-add {
+        background-image: url("@/assets/images/icon/ico-add.png");
+        &:before {
+          content: "";
+        }
+      }
+      .k-i-delete {
+        background-image: url("@/assets/images/icon/ico-delete.png");
+        &:before {
+          content: "";
+        }
+      }
+      .k-i-undo {
+        background-image: url("@/assets/images/icon/ico-undo.png");
+        &:before {
+          content: "";
+        }
+      }
+      .k-i-caret-alt-down {
+        width: 13px !important;
+        height: 8px !important;
+        background-image: url("@/assets/images/icon/ico-dropdown.png");
+        &:before {
+          display: none;
+        }
+      }
+    }
+
+    //Size
+    .k-button-md {
+      padding: 0px 9px 0px 9px;
+      height: 34px;
+      line-height: 34px;
+      font-size: 13px;
+
+      .k-icon {
+        width: 17px;
+        height: 17px;
+
+        + .k-button-text {
+          margin-left: 8px;
+        }
+      }
+    }
+    .k-button-sm {
+      padding: 0px 7px 0 7px;
+      height: 26px;
+      line-height: 26px;
+      font-size: 13px;
+
+      .k-icon {
+        width: 18px;
+        height: 18px;
+
+        + .k-button-text {
+          margin-left: 1px;
+        }
+      }
+    }
+    .btn-form {
+      width: 34px;
+    }
+    .btn-modal {
+      width: 34px;
+      background-repeat: no-repeat;
+      background-size: 18px;
+      background-position: 50%;
+      background-image: url("@/assets/images/icon/ico-modal.png");
+    }
+  
+    /* Layout Style */
+    .loading-container {
+      .loading {
+        z-index: 10002 !important
+      }
+    }
+
+    .k-splitter {
+      @if $theme == dark {
+        background-color: #283142;
+      } @else {
+        background-color: #ffffff;
+      }
+    }
+
+    .lnb-logo {
+      width: 100%;
+      height: 50px;
+      background-repeat: no-repeat;
+      background-position: 60px 17px;
+      background-image: url("@/assets/images/icon/logo_b.svg");
+      
+      
+      font-size: 0;
+
+      .home {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    /* Page Navigation */
+    .page-navigation {
+      position: absolute;
+      top: 4px;
+      left: 20px;
+      padding: 0 !important;
+      font-size: 0;
+
+      li {
+        display: inline-block;
+        position: relative;
+        padding: 5px 12px;
+        font-size: 12px;
+        font-weight: normal;
+        color: #abafbc;
+        line-height: 1;
+
+        &:before {
+          content: "";
+          position: absolute;
+          top: 7px;
+          left: -3px;
+          width: 6px;
+          height: 9px;
+          background-image: url("@/assets/images/icon/ico-arrow-right.png");
+          background-repeat: no-repeat;
+          background-position: left center;
+          background-size: 100% auto;
+        }
+        &:first-of-type {
+          margin: 0;
+          padding-left: 10px;
+          background: none;
+
+          &:before {
+            display: none;
+          }
+        }
+        &:last-of-type {
+          @if $theme == dark {
+            color: #d7d6dc;
+          } @else {
+            color: #475663;
+          }
+        }
+      }
+    }
+
+    .k-card-title {
+      margin-bottom: 13px;
+      font-size: 16px;
+      font-weight: bold;
+      color: map-deep-get($config, #{$theme}, "ft-color-primary");
+    }
+    .grid-tf-option {
+      padding: 5px 10px;
+      border-top-width: 1px;
+      border-right-width: 1px;
+      border-left-width: 1px;
+      border-bottom-width: 0px;
+      border-style: solid;
+      border-color: map-deep-get($config, #{$theme}, "bd-color-basic");
+    }
+    .inline-flex-wrap {
+      // 가로배치
+      display: inline-flex;
+      align-items: center;
+    }
+    .divList {
+      margin-top: 14px;
+
+      &:first-of-type {
+        margin-top: 0;
+      }
+    }
+    .i-msg {
+      font-size: 12px;
+      font-weight: bold;
+      color: map-deep-get($config, #{$theme}, "color-point");
+    }
+    .k-card-title {
+      .i-msg {
+        display: inline-block;
+        margin-left: 15px;
+        line-height: 20px;
+        vertical-align: top;
+      }
+    }
+    /* Deatil Area */
+    div {
+      + .detail-area {
+        margin-top: 10px;
+      }
+    }
+    .detail-area {
+      display: table;
+      width: 100%;
+      border-right-width: 0;
+      border-bottom-width: 0;
+      border-top-width: 1px;
+      border-left-width: 1px;
+      border-style: solid;
+      border-color: map-deep-get($config, #{$theme}, "bd-color-basic");
+
+      &.area-4 {
+        .area-form {
+          .area-th {
+            width: 11.34%;
+          }
+          .area-td {
+            width: 13.65%;
+          }
+        }
+      }
+      .left-area {
+        display: table-cell;
+        width: 53.04%;
+        vertical-align: top;
+      }
+      .right-area {
+        display: table-cell;
+        width: 46.95%;
+        vertical-align: top;
+      }
+      .area-form {
+        display: table;
+        width: 100%;
+
+        .area-th {
+          display: table-cell;
+          padding: 0 9px;
+          width: 19.67%;
+          height: 46px;
+          font-size: 14px;
+          font-weight: bold;
+          color: #475663;
+          text-align: right;
+          border-top-width: 0;
+          border-left-width: 0;
+          border-bottom-width: 1px;
+          border-right-width: 1px;
+          border-style: solid;
+          vertical-align: middle;
+          background-color: map-deep-get(
+            $config,
+            #{$theme},
+            "bg-color-grid-hd"
+          );
+          border-color: map-deep-get($config, #{$theme}, "bd-color-basic");
+        }
+        .area-td {
+          display: table-cell;
+          padding: 5px 9px;
+          width: 30.32%;
+          height: 46px;
+          background-color: map-deep-get($config, #{$theme}, "bg-color-basic");
+          border-top-width: 0;
+          border-left-width: 0;
+          border-bottom-width: 1px;
+          border-right-width: 1px;
+          border-style: solid;
+          vertical-align: middle;
+          font-size: 0;
+          border-color: map-deep-get($config, #{$theme}, "bd-color-basic");
+
+          &.area-full {
+            width: auto;
+          }
+          .search-box {
+            display: inline-block;
+            + .search-box {
+              margin-left: 5px;
+            }
+            + button {
+              margin-left: 5px;
+            }
+          }
+          .k-textarea,
+          textarea {
+            width: 100%;
+            height: calc(100% - 10px);
+          }
+        }
+      }
+    }
+    .btn-cell-move {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+
+      > button {
+        display: block;
+        margin-top: 10px;
+        width: 20px;
+        height: 40px;
+        background-repeat: no-repeat;
+        background-position: 50%;
+        background-size: 8px 12px;
+
+        &:first-of-type {
+          margin-top: 0;
+        }
+        &.btn-cell-left {
+          border-radius: 4px 0px 0px 4px;
+          background-image: url("@/assets/images/icon/ico-arrow-left-w.png");
+        }
+        &.btn-cell-right {
+          border-radius: 0px 4px 4px 0px;
+          background-image: url("@/assets/images/icon/ico-arrow-right-w.png");
+        }
+      }
+    }
+    .btn-cell-move-horizontal {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+
+      > button {
+        display: block;
+        margin-left: 10px;
+        width: 90px;
+        height: 30px;
+        background-repeat: no-repeat;
+        background-position: 50%;
+        background-size: auto 11px;
+
+        &:first-of-type {
+          margin-left: 0;
+        }
+        &.btn-cell-up {
+          border-radius: 4px 4px 0px 0px;
+          background-image: url("@/assets/images/icon/ico-arrow-up-w.png");
+        }
+        &.btn-cell-down {
+          border-radius: 0px 0px 4px 4px;
+          background-image: url("@/assets/images/icon/ico-arrow-down-w.png");
+        }
+      }
+    }
+    .gridTextCenter {
+      text-align: center !important;
+
+      &:focus {
+        text-align: left !important;
+      }
+    }
+    .gridTextRight {
+      text-align: right !important;
+
+      &:focus {
+        text-align: left !important;
+      }
+    }
+    .gridTextLeft {
+      text-align: left !important;
+
+      &:focus {
+        text-align: left !important;
+      }
+    }
+    .k-card-style {
+      padding: 17px 20px;
+      border-width: 1px;
+      border-style: solid;
+      border-radius: 6px;
+      color: map-deep-get($config, #{$theme}, "ft-color-primary");
+      background-color: map-deep-get($config, #{$theme}, "bg-color-basic");
+      border-color: map-deep-get($config, #{$theme}, "bd-color-basic");
+
+      &.k-pivot {
+        padding: 0;
+        overflow: hidden;
+      }
+    }
+    .between-opt-align {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      flex-grow: 1;
+
+      &.align-items-center {
+        align-items: center;
+      }
+
+      .btn-cell-move {
+        display: block;
+        height: auto;
+      }
+      .form-chk {
+        margin-top: 10px;
+      }
+      button {
+        margin-top: 10px;
+      }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  }
+/* //.v-application.#{$theme}-mode */
+
+
+
+
+
+
+
+
+  [hover-tooltip] {
+    $caret-height: 4px;
+    $caret-width: 6px;
+    $distance: -12px;
+    $tooltip-bg-color: rgba(39, 39, 39, 0.8);
+
+    position: relative;
+    cursor: default;
+
+    &:hover {
+      &::before {
+        content: attr(hover-tooltip);
+        font-size: 14px;
+        text-align: center;
+        position: absolute;
+        display: block;
+        left: 50%;
+        min-width: 150px;
+        max-width: 200px;
+        bottom: calc(100% + #{$distance});
+        transform: translate(-50%);
+        animation: fade-in 300ms ease;
+        background: $tooltip-bg-color;
+        border-radius: 4px;
+        padding: 10px;
+        color: #ffffff;
+        z-index: 1;
+      }
+
+      &::after {
+        content: "";
+        position: absolute;
+        display: block;
+        left: 50%;
+        width: 0;
+        height: 0;
+        bottom: calc(100% + #{$distance - $caret-height});
+        margin-left: -$caret-width/2;
+        border: 1px solid black;
+        border-color: $tooltip-bg-color transparent transparent transparent;
+        border-width: $caret-height $caret-width 0;
+        animation: fade-in 300ms ease;
+        z-index: 1;
+      }
+    }
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 0.8;
+    }
+  }
+
+  .k-fade-enter-active {
+    width: 100%;
+  }
+  .k-content {
+    border-color: rgba(0, 0, 0, 0) !important;
+  }
+
+  .gridTextCenter {
+    text-align: center !important;
+  }
+  .gridTextLeft {
+    text-align: left !important;
+  }
+  .gridTextRight {
+    text-align: right !important;
+  }
+
+  .gridTextCenter input {
+    text-align: center !important;
+
+    &:focus {
+      text-align: left !important;
+    }
+  }
+  .gridTextLeft input {
+    text-align: left !important;
+  }
+  .gridTextRight input {
+    text-align: right !important;
+
+    &:focus {
+      text-align: left !important;
+    }
+  }
+  .k-editor-content p {
+    margin: 0.6em 0 0.6em 0;
+  }
+  .k-editor-content td p,
+  .k-editor-content th p,
+  .k-editor-content li p {
+    margin: 0;
+  }
+
+  .k-editor-content table {
+    margin: 0;
+    border-collapse: collapse;
+    table-layout: fixed;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .k-editor-content td,
+  .k-editor-content th {
+    min-width: 1em;
+    border: 1px solid #ddd;
+    padding: 3px 5px;
+    vertical-align: top;
+    box-sizing: border-box;
+    position: relative;
+  }
+
+  .k-editor-content th {
+    font-weight: bold;
+    text-align: left;
+  }
+
+  /* Give selected cells a blue overlay */
+  .k-editor-content .selectedCell:after {
+    z-index: 2;
+    position: absolute;
+    content: "";
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(200, 200, 255, 0.4);
+    pointer-events: none;
+  }
+
+  /* Reset css */
+  .v-application
+    ul,
+    ol {
+      padding: 0;
+    }
+    .k-disabled {
+      opacity: 1 !important;
+    }
+  }
+
+/* reset css */
+$k-font-family: -apple-system, BlinkMacSystemFont, "Malgun Gothic", "맑은 고딕",
+  "Apple SD Gothic Neo", helvetica, sans-serif;
+
+/* Media query */
+@media (max-width: 1267px) {
+  .v-application {
+    .divListWapper {
+      height: auto !important;
+    }
+    .detail-area {
+      display: block;
+
+      .left-area {
+        display: block;
+        width: 100%;
+      }
+      .right-area {
+        display: block;
+        width: 100%;
+
+        .area-td {
+          width: 80.32%;
+        }
+      }
+    }
+    /* Tab Style */
+    .k-tabstrip {
+      height: auto;
+    }
+  }
+}
+
+
+.k-pivot-toolbar.k-toolbar.k-settings-columns.k-pivot-setting {
+  height: 45px !important;
+}
+.k-pivot-toolbar.k-toolbar.k-settings-measures.k-pivot-setting {
+  height: 45px !important;
+}
