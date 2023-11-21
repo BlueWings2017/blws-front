@@ -1,6 +1,6 @@
 {
-  "name": "ls-itc-cms",
-  "version": "2.0.3",
+  "name": "blws-platform",
+  "version": "1.0.0",
   "private": false,
   "scripts": {
     "dev": "nuxt --dotenv .env.dev",
