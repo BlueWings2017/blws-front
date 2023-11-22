@@ -223,69 +223,6 @@ export default {
         return val;
       }
     },
-    //데이터 원상복구시 "수정" 항목 제거
-    gfn_ChkOriginalData(gridHeader, gridData, gridOriData, idx) {
-      const newRow = gridData.filter(x => x.rowStat === "C").length;
-      const realIdx = idx - newRow < 0 ? 0: idx - newRow;
-      const data = JSON.parse(JSON.stringify(gridData.filter(x => x.rowStat !== "C")));
-
-      function parseNullOrUndefinedToBlank(val) {
-        if(val === undefined || val === null) {
-          return "";
-        }
-        else {
-          return val;
-        }
-      }
-
-      function parseChkValToTF(val) {
-        if(val === true || val === "Yes" || val === "Active" || val === "True") {
-          return true;
-        }
-        else {
-          return false;
-        }
-      }
-
-      const chkArr = gridHeader.filter((x) => {
-        if(x.IsBoolean) {
-          return parseChkValToTF(data[realIdx][x.field]) !== parseChkValToTF(gridOriData[realIdx][x.field]);
-        }
-        else {
-          return parseNullOrUndefinedToBlank(data[realIdx]?.[x.field]) !== parseNullOrUndefinedToBlank(gridOriData[realIdx]?.[x.field]) && x.field !== "selected" && x.field !== "rowStat";
-        }
-      });
-      return chkArr.length > 0;
-    },
-    gfn_sortChangeHandler(gridData, e, numberColumns = [], checkColumns = []) {
-      const isAscending = e.sort[0]?.dir == "asc";
-
-      function parseValueSortable(val, field, numberColumns = [], checkColumns = []) {
-        if(numberColumns.includes(field) && $.isNumeric(val)) {
-          const result = parseFloat(val);
-          return result;
-        }
-        else if(checkColumns.includes(field)) {
-          if(val === true || val === "Yes" || val === "Active" || val === "True") {
-            return true;
-          }
-          else {
-            return false;
-          }
-        }
-        else {
-          return val;
-        }
-      }
-
-      if(isAscending){
-        gridData = gridData.sort(
-          (a,b) => parseValueSortable(a[e.event?.field], e.event?.field, numberColumns, checkColumns) < parseValueSortable(b[e.event?.field], e.event?.field, numberColumns, checkColumns) ? -1 : parseValueSortable(a[e.event?.field], e.event?.field, numberColumns, checkColumns) > parseValueSortable(b[e.event?.field], e.event?.field, numberColumns, checkColumns) ? 1 : 0)
-      }else{
-        gridData = gridData.sort(
-          (a,b) => parseValueSortable(a[e.event?.field], e.event?.field, numberColumns, checkColumns) > parseValueSortable(b[e.event?.field], e.event?.field, numberColumns, checkColumns) ? -1 : parseValueSortable(a[e.event?.field], e.event?.field, numberColumns, checkColumns) < parseValueSortable(b[e.event?.field], e.event?.field, numberColumns, checkColumns) ? 1 : 0)
-      }
-    },
     init() {}
   }
 };

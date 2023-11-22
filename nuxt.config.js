@@ -27,10 +27,8 @@ module.exports = {
 
   plugins: [
     "~/plugins/axios",
-    "~/plugins/jqxGrid",
     "~/plugins/routerTab",
     "~/plugins/session",
-    "~/plugins/eChart",
     "~/plugins/auth",
   ],
   router: {
@@ -46,7 +44,7 @@ module.exports = {
     },
   },
 
-  components: true,
+  components: false,
 
   buildModules: ["@nuxtjs/vuetify", "@nuxt/postcss8"],
 
@@ -216,6 +214,8 @@ module.exports = {
       scss: "./assets/scss/**/*.scss",
     },
     publicPath: "/_nuxt/",
+    parallel: true,
+    cache: true,
   },
   env: {},
   server: {
