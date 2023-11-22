@@ -13,10 +13,10 @@
       @itemclick="onItemClick"
       @itemdragover="onItemDragOver"
       @itemdragend="onItemDragEnd"
-    >
+    >    
       <template v-slot:item="{ props }">
         <span :class="props.item.depthValue + ' level-' + props.item.depth">
-          <span v-if="icon !== '' && props.item[icon]" class="tree-icon" :class="iconClass[props.item[icon]]"></span>
+          <span v-if="icon !== '' && props.item[icon]" class="tree-icon" :class="props.item[icon]"></span>
           <span class="treeLeefText" :class="props.item.id === activeItem.id ? 'on' : ''">
             {{ props.item[textField] }}
           </span>
@@ -106,18 +106,7 @@ export default {
     
   },
   data(){
-    return{
-      //각 화면 트리 아이콘 세팅부분 참조
-      iconClass: {
-        Product : "ic-mes-product",
-        'Half-Product' : "ic-mes-halfprod",
-        MATERIAL : "ic-mes-matr",
-        PROCESSROUTE: "ic-mes-route",
-        PROCESS: "ic-mes-process",
-        RECIPE: "ic-mes-step",
-        CONSUMABLE: "ic-mes-inmatr",
-        RECIPEPARAMETER: "ic-mes-proccond"
-      },
+    return{,
       dragOverCnt: 0,
       treeClass: ""
     }

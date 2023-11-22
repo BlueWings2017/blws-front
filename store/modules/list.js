@@ -142,71 +142,7 @@ export const actions = {
       withCredentials: true,
     });
     return res.data;
-  },
-
-  async mesGet({ state }, payload) {
-    const apiUrl = payload.apiKey;
-    const param = getParam(
-      payload.queryId,
-      payload.sendParam,
-      payload.queryVersion
-    );
-    const res = await this.$axios.get(DOMAIN + apiUrl, { params: param });
-    if (res.data.status === 400) {
-      return [];
-    }
-    return res.data;
-    // try {
-    //   const res = await this.$axios.get(DOMAIN + apiUrl, {params: param} );
-    //   return res.data;
-    // } catch (error) {
-    //   return [];
-    // }
-  },
-
-  async mesPost({ state }, payload) {
-    const apiUrl = payload.apiKey;
-    const params = postParam(
-      payload.messagename,
-      payload.sendParam,
-      payload.params2
-    );
-    const res = await this.$axios.post(DOMAIN + apiUrl, params);
-    return res.data;
-  },
-
-};
-
-const getParam = (QUERYID, param, queryVersion = "00001") => {
-  const obj = Object.keys(param).map((x) => {
-    const key = `bindv.${x}`;
-    return { [key]: param[x] };
-  });
-  return {
-    language: "ko",
-    queryid: QUERYID,
-    plantid: "LS",
-    eventuser: "manager",
-    queryversion: queryVersion,
-    loadingDisabled: param.loadingDisabled,
-    ...Object.assign({}, ...obj),
-  };
-};
-
-const postParam = (messagename, param, params2 = {}) => {
-  return {
-    PLANTID: "LS",
-    EVENTUSER: "manager",
-    DATALIST: {
-      MESSAGENAME: messagename,
-      PLANTID: "LS",
-      EVENTUSER: "manager",
-      DATAINFO: param,
-      id: "DATASET",
-    },
-    MESSAGENAME: messagename,
-    ...params2,
-  };
+  }
 };
 
 const INIT_URL_STATE = {
